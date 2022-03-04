@@ -2,6 +2,9 @@ extends Node2D
 const Pixelnaut = preload("res://Pixelnauts/Pixelnaut.tscn")
 const NPCMotion = preload("res://Pixelnauts/NPCMotion.gd")
 var _selected = 0
+const ItemData = preload("res://ItemData.tres")
+const headers = ["Content-Type: application/json"]
+const mint = "hME4W9UibULcSzvd3ux4zvVKioWXhW5LErWS6Sd3Tfb"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -10,9 +13,8 @@ var _selected = 0
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
-	var query = JSON.print({"mint":"hME4W9UibULcSzvd3ux4zvVKioWXhW5LErWS6Sd3Tfb"})
+	var query = JSON.print({"mint":mint})
 	# Add 'Content-Type' header:
-	var headers = ["Content-Type: application/json"]
 	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
 	$Panel/PetShop/GridContainer.get_child(0).grab_focus()
 	
@@ -41,7 +43,21 @@ func _on_TextureButton_button_down(button):
 	print(button)
 	_selected = button
 
-
+func _on_success_or_fail(result, response_code, headers, body):
+	print(body)
 
 func _on_BuyButton_pressed():
-	print("selected {0}".format({'0':_selected}))
+	print("selected {0} {1}".format({'0':_selected, '1': ItemData.data[_selected]}))
+	ItemData.data[_selected]
+
+	$HTTPRequest.connect("request_completed", self, "_on_success_or_fail")
+	if(_selected < 12):
+		var query = JSON.print({"mint":mint, "item": ItemData.data[_selected]})
+		$HTTPRequest.request("http://localhost:5000/buyitem",headers, false, HTTPClient.METHOD_POST, query)
+	else:
+		var query = JSON.print({"mint":mint, "tank": ItemData.data[_selected]})
+		$HTTPRequest.request("http://localhost:5000/upgradetank",headers, false, HTTPClient.METHOD_POST, query)
+	# Add 'Content-Type' header:
+
+	
+	

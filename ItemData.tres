@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://ItemData.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+data = {
+0: "scuba_diver",
+1: "green_plant",
+2: "sand_castle",
+3: "item_3",
+4: "item_4",
+5: "item_5",
+6: "item_6",
+7: "item_7",
+8: "item_8",
+9: "item_9",
+10: "item_10",
+11: "item_11",
+12: "fish_bowl",
+13: "basic_aquarium",
+14: "royal_aquarium",
+15: "magestic_koi_pond"
+}
