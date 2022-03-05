@@ -2,7 +2,8 @@ extends Node2D
 const Pixelnaut = preload("res://Pixelnauts/Pixelnaut.tscn")
 const NPCMotion = preload("res://Pixelnauts/NPCMotion.gd")
 var _selected = 0
-const ItemData = preload("res://ItemData.tres")
+const ItemDataScript = preload("res://ItemData.gd")
+var ItemData = ItemDataScript.new()
 const headers = ["Content-Type: application/json"]
 const mint = "hME4W9UibULcSzvd3ux4zvVKioWXhW5LErWS6Sd3Tfb"
 # Declare member variables here. Examples:
@@ -21,17 +22,21 @@ func _ready():
 
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
-	
-	print(json.result.orcanaut.attributes)
-	var a = json.result.orcanaut.attributes
-	
-	var pixelnaut: KinematicBody2D = Pixelnaut.instance()
+	print(json.result)
+	if(json.result.type == 'load'):
+		print(json.result.orcanaut.attributes)
+		var a = json.result.orcanaut.attributes
+		
+		var pixelnaut: KinematicBody2D = Pixelnaut.instance()
 
-	var npc_motion = NPCMotion.new(rand_range(20,75), Vector2.RIGHT)
-	pixelnaut.set_motion(npc_motion)
-	pixelnaut.build_sprite(a)
-	pixelnaut.position = Vector2(200,200)
-	add_child(pixelnaut)
+		var npc_motion = NPCMotion.new(rand_range(20,75), Vector2.RIGHT)
+		pixelnaut.set_motion(npc_motion)
+		pixelnaut.build_sprite(a)
+		pixelnaut.position = Vector2(200,200)
+		add_child(pixelnaut)
+	if(json.result.type == 'butitem'):
+		if(json.result.result == 'success'):
+			print(json.result.cost)
 
 
 func _on_TextureButton_button_down(button):
@@ -42,20 +47,21 @@ func _on_TextureButton_button_down(button):
 	print('button')
 	print(button)
 	_selected = button
+	$Panel/PetShop/HSplitContainer4/PriceLabel.text = "Price: {0} Coins".format({'0':ItemData.data[_selected][1]})
 
 func _on_success_or_fail(result, response_code, headers, body):
 	print(body)
 
 func _on_BuyButton_pressed():
-	print("selected {0} {1}".format({'0':_selected, '1': ItemData.data[_selected]}))
-	ItemData.data[_selected]
+	print("selected {0} {1}".format({'0':_selected, '1': ItemData.data[_selected][0]}))
+
 
 	$HTTPRequest.connect("request_completed", self, "_on_success_or_fail")
 	if(_selected < 12):
-		var query = JSON.print({"mint":mint, "item": ItemData.data[_selected]})
+		var query = JSON.print({"mint":mint, "item": ItemData.data[_selected][0]})
 		$HTTPRequest.request("http://localhost:5000/buyitem",headers, false, HTTPClient.METHOD_POST, query)
 	else:
-		var query = JSON.print({"mint":mint, "tank": ItemData.data[_selected]})
+		var query = JSON.print({"mint":mint, "tank": ItemData.data[_selected][0]})
 		$HTTPRequest.request("http://localhost:5000/upgradetank",headers, false, HTTPClient.METHOD_POST, query)
 	# Add 'Content-Type' header:
 

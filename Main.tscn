@@ -414,7 +414,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Panel/PetShop/HSplitContainer4"]
+[node name="PriceLabel" type="Label" parent="Panel/PetShop/HSplitContainer4"]
 margin_top = 3.0
 margin_right = 89.0
 margin_bottom = 17.0
