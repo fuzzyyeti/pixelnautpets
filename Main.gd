@@ -1,6 +1,7 @@
 extends Node2D
 const Pixelnaut = preload("res://Pixelnauts/Pixelnaut.tscn")
 const NPCMotion = preload("res://Pixelnauts/NPCMotion.gd")
+const TankItem = preload("res://TankItem.tscn")
 var _selected = 0
 const ItemDataScript = preload("res://ItemData.gd")
 var ItemData = ItemDataScript.new()
@@ -18,13 +19,27 @@ func _ready():
 	# Add 'Content-Type' header:
 	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
 	$Panel/PetShop/GridContainer.get_child(0).grab_focus()
+	$Panel.set_process_input(false)
+	$Panel.set_process(false)
+	$Panel.set_process_unhandled_input(false)
+#	$Panel.hide()
+	
+
+func update_items(items):
+	print(items)
+	for i in items:
+		print(i.item)
+		var texture = load('res://Shop/Assets/{0}.png'.format({'0':i.item}))
+		var ti = TankItem.instance()
+		var s = ti.get_node("ItemBody/Sprite")
+		s.texture = texture
+		s.position = Vector2(i.position.x, i.position.y)
+		add_child(ti)
 	
 
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
-	print(json.result)
 	if(json.result.type == 'load'):
-		print(json.result.orcanaut.attributes)
 		var a = json.result.orcanaut.attributes
 		
 		var pixelnaut: KinematicBody2D = Pixelnaut.instance()
@@ -34,10 +49,18 @@ func _on_request_completed(result, response_code, headers, body):
 		pixelnaut.build_sprite(a)
 		pixelnaut.position = Vector2(200,200)
 		add_child(pixelnaut)
-	if(json.result.type == 'butitem'):
+		update_items(json.result.tank.decorations)
+	if(json.result.type == 'buyitem'):
 		if(json.result.result == 'success'):
-			print(json.result.cost)
-
+			$PopupPanel/Label.text = "You bought a {0} for {1} coins".format(
+				{'0': json.result.item.replace('_',' '), '1': json.result.cost})
+			$PopupPanel.popup_centered(Vector2(100,100))
+			$PopupTimer.start(3)
+		else:
+			$PopupPanel/Label.text = "You don't have enough coins to by a {1}".format(
+				{'1': json.result.item.replace('_',' ')})
+			$PopupPanel.popup_centered(Vector2(100,100))
+			$PopupTimer.start(3)
 
 func _on_TextureButton_button_down(button):
 	for c in $Panel/PetShop/GridContainer.get_children():
@@ -49,14 +72,11 @@ func _on_TextureButton_button_down(button):
 	_selected = button
 	$Panel/PetShop/HSplitContainer4/PriceLabel.text = "Price: {0} Coins".format({'0':ItemData.data[_selected][1]})
 
-func _on_success_or_fail(result, response_code, headers, body):
-	print(body)
 
 func _on_BuyButton_pressed():
 	print("selected {0} {1}".format({'0':_selected, '1': ItemData.data[_selected][0]}))
 
 
-	$HTTPRequest.connect("request_completed", self, "_on_success_or_fail")
 	if(_selected < 12):
 		var query = JSON.print({"mint":mint, "item": ItemData.data[_selected][0]})
 		$HTTPRequest.request("http://localhost:5000/buyitem",headers, false, HTTPClient.METHOD_POST, query)
@@ -67,3 +87,7 @@ func _on_BuyButton_pressed():
 
 	
 	
+
+
+func _on_PopupTimer_timeout():
+	$PopupPanel.hide() # Replace with function body.

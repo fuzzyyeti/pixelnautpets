@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/highlight.png-9ed22be254323112cc2ab25b4dcac698.stex"
+path="res://.import/scuba_diver.png-2f37c1b1edd37f8f8891419f6650faee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Shop/highlight.png"
-dest_files=[ "res://.import/highlight.png-9ed22be254323112cc2ab25b4dcac698.stex" ]
+source_file="res://Shop/Assets/scuba_diver.png"
+dest_files=[ "res://.import/scuba_diver.png-2f37c1b1edd37f8f8891419f6650faee.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/item-pressed.png-a22a69ad4a3d52b360650391f5645c54.stex"
+path="res://.import/highlight.png-c325ead07f161f6ac950fac0cd576708.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Shop/item-pressed.png"
-dest_files=[ "res://.import/item-pressed.png-a22a69ad4a3d52b360650391f5645c54.stex" ]
+source_file="res://Shop/Assets/highlight.png"
+dest_files=[ "res://.import/highlight.png-c325ead07f161f6ac950fac0cd576708.stex" ]
 
 [params]
 

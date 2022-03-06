@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://Shop/highlight.png" type="Texture" id=3]
-[ext_resource path="res://Shop/item-pressed.png" type="Texture" id=4]
-[ext_resource path="res://Shop/item.png" type="Texture" id=5]
+[ext_resource path="res://Shop/Assets/highlight.png" type="Texture" id=3]
+[ext_resource path="res://Shop/Assets/sand_castle-pressed.png" type="Texture" id=4]
+[ext_resource path="res://Shop/Assets/sand_castle-thumb.png" type="Texture" id=5]
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 2 )
@@ -433,6 +433,26 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PopupPanel" type="PopupPanel" parent="."]
+visible = true
+margin_left = 86.0
+margin_top = 160.0
+margin_right = 230.0
+margin_bottom = 216.0
+
+[node name="Label" type="Label" parent="PopupPanel"]
+margin_left = 4.0
+margin_top = 4.0
+margin_right = 140.0
+margin_bottom = 52.0
+text = "You successfully bought a sandcastle"
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupTimer" type="Timer" parent="."]
+
 [connection signal="button_down" from="Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
 [connection signal="button_down" from="Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]
 [connection signal="button_down" from="Panel/PetShop/GridContainer/Item2" to="." method="_on_TextureButton_button_down" binds= [ 2 ]]
@@ -450,3 +470,4 @@ __meta__ = {
 [connection signal="button_down" from="Panel/PetShop/GridContainer2/Item2" to="." method="_on_TextureButton_button_down" binds= [ 14 ]]
 [connection signal="button_down" from="Panel/PetShop/GridContainer2/Item3" to="." method="_on_TextureButton_button_down" binds= [ 15 ]]
 [connection signal="pressed" from="Panel/PetShop/HSplitContainer4/BuyButton" to="." method="_on_BuyButton_pressed"]
+[connection signal="timeout" from="PopupTimer" to="." method="_on_PopupTimer_timeout"]
