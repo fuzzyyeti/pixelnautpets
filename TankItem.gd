@@ -7,14 +7,19 @@ extends Node2D
 
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var can_grab = false
+var grabbed_offset = Vector2()
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
+func _process(delta):
+	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab:
+		position = get_global_mouse_position() + grabbed_offset
+		
 func _on_ItemBody_input_event(viewport, event, shape_idx):
-	pass # Replace with function body.
+	if event is InputEventMouseButton:
+		can_grab = event.pressed
+		grabbed_offset = position - get_global_mouse_position()
+		if not event.pressed:
+			print(position)
+
+
+

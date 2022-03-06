@@ -19,21 +19,21 @@ func _ready():
 	# Add 'Content-Type' header:
 	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
 	$Panel/PetShop/GridContainer.get_child(0).grab_focus()
-	$Panel.set_process_input(false)
-	$Panel.set_process(false)
-	$Panel.set_process_unhandled_input(false)
-#	$Panel.hide()
+	#remove_child($Panel)
+	$Panel.hide()
 	
 
 func update_items(items):
 	print(items)
+	var j = 0
 	for i in items:
 		print(i.item)
 		var texture = load('res://Shop/Assets/{0}.png'.format({'0':i.item}))
 		var ti = TankItem.instance()
 		var s = ti.get_node("ItemBody/Sprite")
 		s.texture = texture
-		s.position = Vector2(i.position.x, i.position.y)
+		j += 100
+		ti.position = Vector2(i.position.x + j, i.position.y)
 		add_child(ti)
 	
 
