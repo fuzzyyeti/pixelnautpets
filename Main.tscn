@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -11,6 +11,9 @@ texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 15.5, 238 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -452,6 +455,21 @@ __meta__ = {
 }
 
 [node name="PopupTimer" type="Timer" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
+margin_left = 281.0
+margin_top = -108.0
+margin_right = 308.0
+margin_bottom = 372.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2( 294.5, 132 )
+shape = SubResource( 3 )
 
 [connection signal="button_down" from="Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
 [connection signal="button_down" from="Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]

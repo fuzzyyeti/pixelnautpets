@@ -19,24 +19,29 @@ func _ready():
 	# Add 'Content-Type' header:
 	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
 	$Panel/PetShop/GridContainer.get_child(0).grab_focus()
-	#remove_child($Panel)
+
 	$Panel.hide()
 	
 
 func update_items(items):
 	print(items)
-	var j = 0
 	for i in items:
 		print(i.item)
 		var texture = load('res://Shop/Assets/{0}.png'.format({'0':i.item}))
 		var ti = TankItem.instance()
 		var s = ti.get_node("ItemBody/Sprite")
 		s.texture = texture
-		j += 100
-		ti.position = Vector2(i.position.x + j, i.position.y)
+		ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width(), s.texture.get_height())
+		ti.position = Vector2(i.position.x, i.position.y)
+		ti.get_node("ItemBody").item_type = i.item
 		add_child(ti)
+		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
 	
-
+func _on_position_update(position, item_type):
+	var query = JSON.print({"mint":mint, "item": item_type, "x": position.x, "y": position.y})
+	$HTTPRequest.request("http://localhost:5000/update/itemposition",headers, false, HTTPClient.METHOD_POST, query)
+	
+	
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	if(json.result.type == 'load'):
@@ -57,8 +62,12 @@ func _on_request_completed(result, response_code, headers, body):
 			$PopupPanel.popup_centered(Vector2(100,100))
 			$PopupTimer.start(3)
 		else:
-			$PopupPanel/Label.text = "You don't have enough coins to by a {1}".format(
-				{'1': json.result.item.replace('_',' ')})
+			if json.result.cost == -1:
+				$PopupPanel/Label.text = "You already have a {1}".format(
+					{'1': json.result.item.replace('_',' ')})	
+			else:	
+				$PopupPanel/Label.text = "You don't have enough coins to by a {1}".format(
+					{'1': json.result.item.replace('_',' ')})
 			$PopupPanel.popup_centered(Vector2(100,100))
 			$PopupTimer.start(3)
 
