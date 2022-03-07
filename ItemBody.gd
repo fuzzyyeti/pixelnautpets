@@ -15,6 +15,7 @@ func _process(delta):
 		if get_slide_collision(0):
 			if $Timer.is_stopped():
 				$Timer.start(2)
+				
 func _on_ItemBody_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		can_grab = event.pressed
@@ -23,8 +24,6 @@ func _on_ItemBody_input_event(viewport, event, shape_idx):
 			print(position)
 			emit_signal("position_update", position, item_type)
 				
-
-
 func _on_Timer_timeout():
 	print("collision emit")
 	$Timer.stop()

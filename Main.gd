@@ -18,9 +18,9 @@ func _ready():
 	var query = JSON.print({"mint":mint})
 	# Add 'Content-Type' header:
 	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
-	$CanvasLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()
+	$ShopLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()
 
-	$CanvasLayer/Panel.hide()
+	$ShopLayer/Panel.hide()
 	
 
 func update_items(items):
@@ -54,34 +54,34 @@ func _on_request_completed(result, response_code, headers, body):
 		var npc_motion = NPCMotion.new(rand_range(20,75), Vector2.RIGHT)
 		pixelnaut.set_motion(npc_motion)
 		pixelnaut.build_sprite(a)
-		pixelnaut.position = Vector2(200,200)
+		pixelnaut.position = Vector2(30,30)
 		add_child(pixelnaut)
 		update_items(json.result.tank.decorations)
 	if(json.result.type == 'buyitem'):
 		if(json.result.result == 'success'):
-			$PopupPanel/Label.text = "You bought a {0} for {1} coins".format(
+			$PopupLayer/PopupPanel/Label.text = "You bought a {0} for {1} coins".format(
 				{'0': json.result.item.replace('_',' '), '1': json.result.cost})
-			$PopupPanel.popup_centered(Vector2(100,100))
+			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
 		else:
 			if json.result.cost == -1:
-				$PopupPanel/Label.text = "You already have a {1}".format(
+				$PopupLayer/PopupPanel/Label.text = "You already have a {1}".format(
 					{'1': json.result.item.replace('_',' ')})	
 			else:	
-				$PopupPanel/Label.text = "You don't have enough coins to by a {1}".format(
+				$PopupLayer/PopupPanel/Label.text = "You don't have enough coins to by a {1}".format(
 					{'1': json.result.item.replace('_',' ')})
-			$PopupPanel.popup_centered(Vector2(100,100))
+			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
 
 func _on_TextureButton_button_down(button):
-	for c in $CanvasLayer/Panel/PetShop/GridContainer.get_children():
+	for c in $ShopLayer/Panel/PetShop/GridContainer.get_children():
 		c.pressed = false
-	for c in $CanvasLayer/Panel/PetShop/GridContainer2.get_children():
+	for c in $ShopLayer/Panel/PetShop/GridContainer2.get_children():
 		c.pressed = false
 	print('button')
 	print(button)
 	_selected = button
-	$CanvasLayer/Panel/PetShop/HSplitContainer4/PriceLabel.text = "Price: {0} Coins".format({'0':ItemData.data[_selected][1]})
+	$ShopLayer/Panel/PetShop/HSplitContainer4/PriceLabel.text = "Price: {0} Coins".format({'0':ItemData.data[_selected][1]})
 
 
 func _on_BuyButton_pressed():
@@ -101,14 +101,14 @@ func _on_BuyButton_pressed():
 
 
 func _on_PopupTimer_timeout():
-	$PopupPanel.hide() # Replace with function body.
+	$PopupLayer/PopupPanel.hide() # Replace with function body.
 
 
 func _on_PetShopButton_pressed():
-	if $CanvasLayer/Panel.visible:
-		$CanvasLayer/Panel.hide()
+	if $ShopLayer/Panel.visible:
+		$ShopLayer/Panel.hide()
 	else:
-		$CanvasLayer/Panel.show()
+		$ShopLayer/Panel.show()
 
 
 func _on_FeedButton_pressed():

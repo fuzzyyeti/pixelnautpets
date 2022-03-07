@@ -30,6 +30,16 @@ config/name="PixelnautPets"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=360
+window/size/height=180
+window/size/resizable=false
+window/size/test_width=1200
+window/size/test_height=600
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+
 [physics]
 
 common/enable_pause_aware_picking=true
