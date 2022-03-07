@@ -15,4 +15,7 @@ script = ExtResource( 1 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemBody"]
 shape = SubResource( 1 )
 
+[node name="Timer" type="Timer" parent="ItemBody"]
+
 [connection signal="input_event" from="ItemBody" to="ItemBody" method="_on_ItemBody_input_event"]
+[connection signal="timeout" from="ItemBody/Timer" to="ItemBody" method="_on_Timer_timeout"]

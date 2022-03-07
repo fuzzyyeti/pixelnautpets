@@ -20,17 +20,19 @@ script = ExtResource( 1 )
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
-[node name="Panel" type="Panel" parent="."]
-margin_left = 51.0
-margin_top = 22.0
-margin_right = 251.0
-margin_bottom = 316.0
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+margin_left = 64.0
+margin_top = 17.0
+margin_right = 264.0
+margin_bottom = 311.0
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PetShop" type="GridContainer" parent="Panel"]
+[node name="PetShop" type="GridContainer" parent="CanvasLayer/Panel"]
 margin_left = 30.0
 margin_top = 30.0
 margin_right = 146.0
@@ -39,7 +41,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer" type="HSplitContainer" parent="Panel/PetShop"]
+[node name="HSplitContainer" type="HSplitContainer" parent="CanvasLayer/Panel/PetShop"]
 margin_right = 140.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
@@ -47,14 +49,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Panel/PetShop/HSplitContainer"]
+[node name="Label" type="Label" parent="CanvasLayer/Panel/PetShop/HSplitContainer"]
 margin_right = 140.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 custom_styles/normal = SubResource( 1 )
 text = "Pet Shop"
 
-[node name="HSplitContainer3" type="HSplitContainer" parent="Panel/PetShop"]
+[node name="HSplitContainer3" type="HSplitContainer" parent="CanvasLayer/Panel/PetShop"]
 margin_top = 18.0
 margin_right = 140.0
 margin_bottom = 32.0
@@ -62,14 +64,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Panel/PetShop/HSplitContainer3"]
+[node name="Label" type="Label" parent="CanvasLayer/Panel/PetShop/HSplitContainer3"]
 margin_right = 140.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 custom_styles/normal = SubResource( 1 )
 text = "Items:"
 
-[node name="GridContainer" type="GridContainer" parent="Panel/PetShop"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Panel/PetShop"]
 margin_top = 36.0
 margin_right = 140.0
 margin_bottom = 140.0
@@ -78,7 +80,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 4
 
-[node name="Item0" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item0" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( -135, 216 )
@@ -96,7 +98,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item1" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item1" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0
@@ -115,7 +117,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item2" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item2" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 72.0
 margin_right = 104.0
 margin_bottom = 32.0
@@ -134,7 +136,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item3" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item3" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 108.0
 margin_right = 140.0
 margin_bottom = 32.0
@@ -153,7 +155,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item4" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item4" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_top = 36.0
 margin_right = 32.0
 margin_bottom = 68.0
@@ -172,7 +174,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item5" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item5" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 36.0
 margin_top = 36.0
 margin_right = 68.0
@@ -192,7 +194,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item6" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item6" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 72.0
 margin_top = 36.0
 margin_right = 104.0
@@ -212,7 +214,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item7" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item7" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 108.0
 margin_top = 36.0
 margin_right = 140.0
@@ -232,7 +234,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item8" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item8" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_top = 72.0
 margin_right = 32.0
 margin_bottom = 104.0
@@ -251,7 +253,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item9" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item9" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 36.0
 margin_top = 72.0
 margin_right = 68.0
@@ -271,7 +273,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item10" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item10" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 72.0
 margin_top = 72.0
 margin_right = 104.0
@@ -291,7 +293,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item11" type="TextureButton" parent="Panel/PetShop/GridContainer"]
+[node name="Item11" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer"]
 margin_left = 108.0
 margin_top = 72.0
 margin_right = 140.0
@@ -311,7 +313,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer2" type="HSplitContainer" parent="Panel/PetShop"]
+[node name="HSplitContainer2" type="HSplitContainer" parent="CanvasLayer/Panel/PetShop"]
 margin_top = 144.0
 margin_right = 140.0
 margin_bottom = 158.0
@@ -319,14 +321,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Panel/PetShop/HSplitContainer2"]
+[node name="Label" type="Label" parent="CanvasLayer/Panel/PetShop/HSplitContainer2"]
 margin_right = 140.0
 margin_bottom = 14.0
 size_flags_horizontal = 3
 custom_styles/normal = SubResource( 1 )
 text = "Tanks:"
 
-[node name="GridContainer2" type="GridContainer" parent="Panel/PetShop"]
+[node name="GridContainer2" type="GridContainer" parent="CanvasLayer/Panel/PetShop"]
 margin_top = 162.0
 margin_right = 140.0
 margin_bottom = 194.0
@@ -335,7 +337,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 columns = 4
 
-[node name="Item0" type="TextureButton" parent="Panel/PetShop/GridContainer2"]
+[node name="Item0" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer2"]
 margin_right = 32.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( -135, 216 )
@@ -352,7 +354,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item1" type="TextureButton" parent="Panel/PetShop/GridContainer2"]
+[node name="Item1" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer2"]
 margin_left = 36.0
 margin_right = 68.0
 margin_bottom = 32.0
@@ -371,7 +373,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item2" type="TextureButton" parent="Panel/PetShop/GridContainer2"]
+[node name="Item2" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer2"]
 margin_left = 72.0
 margin_right = 104.0
 margin_bottom = 32.0
@@ -390,7 +392,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Item3" type="TextureButton" parent="Panel/PetShop/GridContainer2"]
+[node name="Item3" type="TextureButton" parent="CanvasLayer/Panel/PetShop/GridContainer2"]
 margin_left = 108.0
 margin_right = 140.0
 margin_bottom = 32.0
@@ -409,7 +411,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HSplitContainer4" type="HSplitContainer" parent="Panel/PetShop"]
+[node name="HSplitContainer4" type="HSplitContainer" parent="CanvasLayer/Panel/PetShop"]
 margin_top = 198.0
 margin_right = 140.0
 margin_bottom = 218.0
@@ -417,13 +419,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PriceLabel" type="Label" parent="Panel/PetShop/HSplitContainer4"]
+[node name="PriceLabel" type="Label" parent="CanvasLayer/Panel/PetShop/HSplitContainer4"]
 margin_top = 3.0
 margin_right = 89.0
 margin_bottom = 17.0
 text = "Price: N Coins"
 
-[node name="BuyButton" type="Button" parent="Panel/PetShop/HSplitContainer4"]
+[node name="BuyButton" type="Button" parent="CanvasLayer/Panel/PetShop/HSplitContainer4"]
 margin_left = 101.0
 margin_right = 140.0
 margin_bottom = 20.0
@@ -459,33 +461,64 @@ __meta__ = {
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
-margin_left = 281.0
-margin_top = -108.0
-margin_right = 308.0
-margin_bottom = 372.0
+margin_left = 340.0
+margin_top = 2.0
+margin_right = 367.0
+margin_bottom = 482.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 294.5, 132 )
+position = Vector2( 352, 241 )
 shape = SubResource( 3 )
 
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item2" to="." method="_on_TextureButton_button_down" binds= [ 2 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item3" to="." method="_on_TextureButton_button_down" binds= [ 3 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item4" to="." method="_on_TextureButton_button_down" binds= [ 4 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item5" to="." method="_on_TextureButton_button_down" binds= [ 5 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item6" to="." method="_on_TextureButton_button_down" binds= [ 6 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item7" to="." method="_on_TextureButton_button_down" binds= [ 7 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item8" to="." method="_on_TextureButton_button_down" binds= [ 8 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item9" to="." method="_on_TextureButton_button_down" binds= [ 9 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item10" to="." method="_on_TextureButton_button_down" binds= [ 10 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer/Item11" to="." method="_on_TextureButton_button_down" binds= [ 11 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer2/Item0" to="." method="_on_TextureButton_button_down" binds= [ 12 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer2/Item1" to="." method="_on_TextureButton_button_down" binds= [ 13 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer2/Item2" to="." method="_on_TextureButton_button_down" binds= [ 14 ]]
-[connection signal="button_down" from="Panel/PetShop/GridContainer2/Item3" to="." method="_on_TextureButton_button_down" binds= [ 15 ]]
-[connection signal="pressed" from="Panel/PetShop/HSplitContainer4/BuyButton" to="." method="_on_BuyButton_pressed"]
+[node name="PetShopButton" type="Button" parent="."]
+margin_left = 66.0
+margin_top = 359.0
+margin_right = 127.0
+margin_bottom = 379.0
+text = "Shop"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FeedButton" type="Button" parent="."]
+margin_left = 145.0
+margin_top = 359.0
+margin_right = 206.0
+margin_bottom = 379.0
+text = "Feed"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CleanButton" type="Button" parent="."]
+margin_left = 232.0
+margin_top = 359.0
+margin_right = 293.0
+margin_bottom = 379.0
+text = "Clean"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item2" to="." method="_on_TextureButton_button_down" binds= [ 2 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item3" to="." method="_on_TextureButton_button_down" binds= [ 3 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item4" to="." method="_on_TextureButton_button_down" binds= [ 4 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item5" to="." method="_on_TextureButton_button_down" binds= [ 5 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item6" to="." method="_on_TextureButton_button_down" binds= [ 6 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item7" to="." method="_on_TextureButton_button_down" binds= [ 7 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item8" to="." method="_on_TextureButton_button_down" binds= [ 8 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item9" to="." method="_on_TextureButton_button_down" binds= [ 9 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item10" to="." method="_on_TextureButton_button_down" binds= [ 10 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer/Item11" to="." method="_on_TextureButton_button_down" binds= [ 11 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer2/Item0" to="." method="_on_TextureButton_button_down" binds= [ 12 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer2/Item1" to="." method="_on_TextureButton_button_down" binds= [ 13 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer2/Item2" to="." method="_on_TextureButton_button_down" binds= [ 14 ]]
+[connection signal="button_down" from="CanvasLayer/Panel/PetShop/GridContainer2/Item3" to="." method="_on_TextureButton_button_down" binds= [ 15 ]]
+[connection signal="pressed" from="CanvasLayer/Panel/PetShop/HSplitContainer4/BuyButton" to="." method="_on_BuyButton_pressed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_PopupTimer_timeout"]
+[connection signal="pressed" from="PetShopButton" to="." method="_on_PetShopButton_pressed"]

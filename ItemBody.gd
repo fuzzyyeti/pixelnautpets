@@ -19,4 +19,12 @@ func _on_ItemBody_input_event(viewport, event, shape_idx):
 		can_grab = event.pressed
 		grabbed_offset = position - get_global_mouse_position()
 		if not event.pressed:
-			emit_signal("position_update", position, item_type)
+			if $Timer.is_stopped():
+				$Timer.start(1)
+
+
+
+func _on_Timer_timeout():
+	print('got here to timeout')
+	emit_signal("position_update", position, item_type)
+	$Timer.stop()
