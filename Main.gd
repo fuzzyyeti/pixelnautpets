@@ -109,3 +109,13 @@ func _on_PetShopButton_pressed():
 		$CanvasLayer/Panel.hide()
 	else:
 		$CanvasLayer/Panel.show()
+
+
+func _on_FeedButton_pressed():
+	var query = JSON.print({"mint":mint})
+	$HTTPRequest.request("http://localhost:5000/feedfish",headers, false, HTTPClient.METHOD_POST, query)
+
+
+func _on_CleanButton_pressed():
+	var query = JSON.print({"mint":mint})
+	$HTTPRequest.request("http://localhost:5000/changewater",headers, false, HTTPClient.METHOD_POST, query)

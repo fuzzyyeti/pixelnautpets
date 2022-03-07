@@ -1,8 +1,42 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://PetShop.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Control.gd" type="Script" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var icon = load('res://icon.png')
+var icon2 = load('res://Pixelnauts/assets/accessory/accessory-atlas_ship.png')
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	for x in range(5):
+		print(x)
+		var c = Control.new()
+		$ItemShelf.add_child(c)
+#		var s = Sprite.new()
+#		s.texture = icon
+#		$ItemShelf.add_child(s)
+#		s = Sprite.new()
+#		s.texture = icon2
+#		s.hframes = 10
+#		$ItemShelf.add_child(s)
+
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Control_gui_input(event):
+	print(event) # Replace with function body.
+"
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -11,7 +45,7 @@ margin_left = 32.0
 margin_top = -5.0
 margin_right = 32.0
 margin_bottom = -5.0
-script = ExtResource( 1 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

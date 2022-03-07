@@ -522,3 +522,5 @@ __meta__ = {
 [connection signal="pressed" from="CanvasLayer/Panel/PetShop/HSplitContainer4/BuyButton" to="." method="_on_BuyButton_pressed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_PopupTimer_timeout"]
 [connection signal="pressed" from="PetShopButton" to="." method="_on_PetShopButton_pressed"]
+[connection signal="pressed" from="FeedButton" to="." method="_on_FeedButton_pressed"]
+[connection signal="pressed" from="CleanButton" to="." method="_on_CleanButton_pressed"]
