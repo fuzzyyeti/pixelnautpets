@@ -14,13 +14,20 @@ const mint = "hME4W9UibULcSzvd3ux4zvVKioWXhW5LErWS6Sd3Tfb"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$ShopLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()	
+	$ShopLayer/Panel.hide()
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
+	load_tank()
+
+func check_coins():
+	var query = JSON.print({"mint":mint})
+	# Add 'Content-Type' header:
+	$HTTPRequest.request("http://localhost:5000/coinbalance",headers, false, HTTPClient.METHOD_GET, query)
+
+func load_tank():
 	var query = JSON.print({"mint":mint})
 	# Add 'Content-Type' header:
 	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
-	$ShopLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()
-
-	$ShopLayer/Panel.hide()
 	
 
 func update_items(items):
@@ -46,19 +53,21 @@ func _on_position_update(position, item_type):
 	
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
-	if(json.result.type == 'load'):
+	if json.result.type == 'load':
 		var a = json.result.orcanaut.attributes
-		
 		var pixelnaut: KinematicBody2D = Pixelnaut.instance()
-
+		pixelnaut.name = 'Pixelnaut'
 		var npc_motion = NPCMotion.new(rand_range(20,75), Vector2.RIGHT)
 		pixelnaut.set_motion(npc_motion)
 		pixelnaut.build_sprite(a)
 		pixelnaut.position = Vector2(30,30)
 		add_child(pixelnaut)
 		update_items(json.result.tank.decorations)
-	if(json.result.type == 'buyitem'):
-		if(json.result.result == 'success'):
+		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
+	if json.result.type == 'coinbalance':
+		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
+	if json.result.type == 'buyitem':
+		if json.result.result == 'success':
 			$PopupLayer/PopupPanel/Label.text = "You bought a {0} for {1} coins".format(
 				{'0': json.result.item.replace('_',' '), '1': json.result.cost})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
@@ -66,12 +75,33 @@ func _on_request_completed(result, response_code, headers, body):
 		else:
 			if json.result.cost == -1:
 				$PopupLayer/PopupPanel/Label.text = "You already have a {1}".format(
-					{'1': json.result.item.replace('_',' ')})	
+					{'1': json.result.item.replace('_',' ')})
 			else:	
 				$PopupLayer/PopupPanel/Label.text = "You don't have enough coins to by a {1}".format(
 					{'1': json.result.item.replace('_',' ')})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
+			check_coins()
+	if json.result.type == 'feedfish':
+			if(json.result.coins == -1):
+				$PopupLayer/PopupPanel/Label.text = "You waited too long to feed your pixelnaut and lost all your coins"
+			else:
+				$PopupLayer/PopupPanel/Label.text = "You got {0} coins for feeding your pixelnaut".format(
+			{'0': json.result.coins})
+			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
+			$PopupTimer.start(3)
+			check_coins()
+	if json.result.type == 'changewater':
+			if(json.result.coins == -1):
+				$PopupLayer/PopupPanel/Label.text = "You waited too long to change your pixelnaut's water and lost all your coins".format(
+					{'0': json.result.coins})
+			else:
+				$PopupLayer/PopupPanel/Label.text = "You got {0} coins for changing your pixelnaut's water".format(
+					{'0': json.result.coins})
+			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
+			$PopupTimer.start(3)
+			check_coins()
+		
 
 func _on_TextureButton_button_down(button):
 	for c in $ShopLayer/Panel/PetShop/GridContainer.get_children():

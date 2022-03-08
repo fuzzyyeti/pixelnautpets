@@ -397,11 +397,20 @@ __meta__ = {
 }
 
 [node name="CleanButton" type="Button" parent="."]
-margin_left = 224.0
-margin_top = 152.0
-margin_right = 285.0
-margin_bottom = 172.0
+margin_left = 202.0
+margin_top = 153.0
+margin_right = 263.0
+margin_bottom = 173.0
 text = "Clean"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CoinLabel" type="Label" parent="."]
+margin_left = 278.0
+margin_top = 154.0
+margin_right = 325.0
+margin_bottom = 172.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
