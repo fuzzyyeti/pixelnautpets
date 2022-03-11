@@ -21,14 +21,12 @@ func _ready():
 	$CoinCheckTimer.start(6)
 
 func check_coins():
-	var query = JSON.print({"mint":mint})
 	# Add 'Content-Type' header:
-	$HTTPRequest.request("http://localhost:5000/coinbalance",headers, false, HTTPClient.METHOD_GET, query)
+	$HTTPRequest.request("http://localhost:5000/coinbalance?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
 
 func load_tank():
-	var query = JSON.print({"mint":mint})
 	# Add 'Content-Type' header:
-	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
+	$HTTPRequest.request("http://localhost:5000/tank/load?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
 	
 
 func _physics_process(delta):
