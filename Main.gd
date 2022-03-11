@@ -18,6 +18,7 @@ func _ready():
 	$ShopLayer/Panel.hide()
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 	load_tank()
+	$CoinCheckTimer.start(6)
 
 func check_coins():
 	var query = JSON.print({"mint":mint})
@@ -54,19 +55,25 @@ func _on_position_update(position, item_type):
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	if json.result.type == 'load':
-		var a = json.result.orcanaut.attributes
-		var pixelnaut: KinematicBody2D = Pixelnaut.instance()
-		pixelnaut.name = 'Pixelnaut'
-		var npc_motion = NPCMotion.new(rand_range(20,75), Vector2.RIGHT)
-		pixelnaut.set_motion(npc_motion)
-		pixelnaut.build_sprite(a)
-		pixelnaut.position = Vector2(30,30)
-		add_child(pixelnaut)
+		if not has_node('pixelnaut_0'):
+			var attributes = json.result.orcanaut.attributes
+			var pixelnaut: KinematicBody2D = Pixelnaut.instance()
+			pixelnaut.name = 'Pixelnaut'
+			var npc_motion = NPCMotion.new(rand_range(20,75), Vector2.RIGHT)
+			pixelnaut.set_motion(npc_motion)
+			pixelnaut.build_sprite(attributes)
+			pixelnaut.position = Vector2(30,30)
+			add_child(pixelnaut)
 		update_items(json.result.tank.decorations)
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
 	if json.result.type == 'coinbalance':
-		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
+		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
+		if(json.result.coin_reset):
+			$PopupLayer/PopupPanel/Label.text = "You waited too long to take care of your pixelnaut and lost all your coins"
+			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
+			$PopupTimer.start(3)
 	if json.result.type == 'buyitem':
+		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 		if json.result.result == 'success':
 			$PopupLayer/PopupPanel/Label.text = "You bought a {0} for {1} coins".format(
 				{'0': json.result.item.replace('_',' '), '1': json.result.cost})
@@ -81,8 +88,9 @@ func _on_request_completed(result, response_code, headers, body):
 					{'1': json.result.item.replace('_',' ')})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
-			check_coins()
+		load_tank()
 	if json.result.type == 'feedfish':
+			$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 			if(json.result.coins == -1):
 				$PopupLayer/PopupPanel/Label.text = "You waited too long to feed your pixelnaut and lost all your coins"
 			else:
@@ -90,8 +98,8 @@ func _on_request_completed(result, response_code, headers, body):
 			{'0': json.result.coins})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
-			check_coins()
 	if json.result.type == 'changewater':
+			$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 			if(json.result.coins == -1):
 				$PopupLayer/PopupPanel/Label.text = "You waited too long to change your pixelnaut's water and lost all your coins".format(
 					{'0': json.result.coins})
@@ -100,7 +108,7 @@ func _on_request_completed(result, response_code, headers, body):
 					{'0': json.result.coins})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
-			check_coins()
+			load_tank()
 		
 
 func _on_TextureButton_button_down(button):
@@ -149,3 +157,8 @@ func _on_FeedButton_pressed():
 func _on_CleanButton_pressed():
 	var query = JSON.print({"mint":mint})
 	$HTTPRequest.request("http://localhost:5000/changewater",headers, false, HTTPClient.METHOD_POST, query)
+
+
+func _on_CoinCheckTimer_timeout():
+	print("checking coins")
+	check_coins()

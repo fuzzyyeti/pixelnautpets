@@ -37,7 +37,7 @@ __meta__ = {
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 140.0
-margin_bottom = 35.0
+margin_bottom = 52.0
 text = "You successfully bought a sandcastle"
 autowrap = true
 __meta__ = {
@@ -47,10 +47,10 @@ __meta__ = {
 [node name="ShopLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="ShopLayer"]
-margin_left = 65.0
-margin_top = -49.0
-margin_right = 301.0
-margin_bottom = 180.0
+margin_left = 48.0
+margin_top = -14.0
+margin_right = 246.0
+margin_bottom = 191.0
 custom_styles/panel = SubResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -60,7 +60,7 @@ __meta__ = {
 margin_left = 30.0
 margin_top = 30.0
 margin_right = 146.0
-margin_bottom = 225.0
+margin_bottom = 195.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -256,7 +256,7 @@ text = "Tanks:"
 [node name="GridContainer2" type="GridContainer" parent="ShopLayer/Panel/PetShop"]
 margin_top = 108.0
 margin_right = 140.0
-margin_bottom = 171.0
+margin_bottom = 141.0
 rect_pivot_offset = Vector2( -509, 20 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -333,9 +333,9 @@ __meta__ = {
 }
 
 [node name="HSplitContainer4" type="HSplitContainer" parent="ShopLayer/Panel/PetShop"]
-margin_top = 175.0
+margin_top = 145.0
 margin_right = 140.0
-margin_bottom = 195.0
+margin_bottom = 165.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -415,6 +415,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CoinCheckTimer" type="Timer" parent="."]
+
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item2" to="." method="_on_TextureButton_button_down" binds= [ 2 ]]
@@ -432,3 +434,4 @@ __meta__ = {
 [connection signal="pressed" from="PetShopButton" to="." method="_on_PetShopButton_pressed"]
 [connection signal="pressed" from="FeedButton" to="." method="_on_FeedButton_pressed"]
 [connection signal="pressed" from="CleanButton" to="." method="_on_CleanButton_pressed"]
+[connection signal="timeout" from="CoinCheckTimer" to="." method="_on_CoinCheckTimer_timeout"]
