@@ -57,8 +57,8 @@ func update_items(items):
 		ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
 		ti.get_node("ItemBody").position = Vector2(i.position.x, i.position.y)
 		ti.get_node("ItemBody").item_type = i.item
-		add_child(ti)
 		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
+		add_child(ti)
 	
 func _on_position_update(position, item_type):
 	print('update position')
@@ -78,6 +78,7 @@ func _on_request_completed(result, response_code, headers, body):
 			pixelnaut.set_motion(npc_motion)
 			pixelnaut.build_sprite(attributes)
 			pixelnaut.position = Vector2(150,100)
+			pixelnaut.z_index = 100
 			add_child(pixelnaut)
 		update_items(json.result.tank.decorations)
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})

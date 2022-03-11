@@ -19,7 +19,7 @@
 [ext_resource path="res://Shop/Assets/item_7-thumb.png" type="Texture" id=17]
 [ext_resource path="res://Shop/Assets/item_6-thumb.png" type="Texture" id=18]
 [ext_resource path="res://Shop/Assets/item_4-pressed.png" type="Texture" id=19]
-[ext_resource path="res://Tanks/tank-tier_0.tscn" type="PackedScene" id=20]
+[ext_resource path="res://Tanks/tank-tier_2.tscn" type="PackedScene" id=20]
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 2 )
@@ -58,6 +58,7 @@ __meta__ = {
 [node name="ShopLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="ShopLayer"]
+visible = false
 margin_left = 48.0
 margin_top = -14.0
 margin_right = 246.0
@@ -341,10 +342,10 @@ __meta__ = {
 [node name="PopupTimer" type="Timer" parent="."]
 
 [node name="PetShopButton" type="Button" parent="."]
-margin_left = 18.0
-margin_top = 148.0
-margin_right = 79.0
-margin_bottom = 168.0
+margin_left = 36.0
+margin_top = 150.0
+margin_right = 97.0
+margin_bottom = 170.0
 text = "Shop"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -382,7 +383,7 @@ __meta__ = {
 [node name="CoinCheckTimer" type="Timer" parent="."]
 
 [node name="Node2D" parent="." instance=ExtResource( 20 )]
-position = Vector2( 142, 84 )
+position = Vector2( 171, 77 )
 
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]
