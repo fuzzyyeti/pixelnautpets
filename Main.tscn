@@ -1,19 +1,31 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Shop/Assets/highlight.png" type="Texture" id=3]
 [ext_resource path="res://Shop/Assets/sand_castle-pressed.png" type="Texture" id=4]
 [ext_resource path="res://Shop/Assets/sand_castle-thumb.png" type="Texture" id=5]
+[ext_resource path="res://Shop/Assets/green_plant-thumb.png" type="Texture" id=6]
+[ext_resource path="res://Shop/Assets/scuba_diver-pressed.png" type="Texture" id=7]
+[ext_resource path="res://Shop/Assets/item_3-pressed.png" type="Texture" id=8]
+[ext_resource path="res://Shop/Assets/item_3-thumb.png" type="Texture" id=9]
+[ext_resource path="res://Shop/Assets/green_plant-pressed.png" type="Texture" id=10]
+[ext_resource path="res://Shop/Assets/item_7-pressed.png" type="Texture" id=11]
+[ext_resource path="res://Shop/Assets/item_6-pressed.png" type="Texture" id=12]
+[ext_resource path="res://Shop/Assets/scuba_diver-thumb.png" type="Texture" id=13]
+[ext_resource path="res://Shop/Assets/item_5-thumb.png" type="Texture" id=14]
+[ext_resource path="res://Shop/Assets/item_5-pressed.png" type="Texture" id=15]
+[ext_resource path="res://Shop/Assets/item_4-thumb.png" type="Texture" id=16]
+[ext_resource path="res://Shop/Assets/item_7-thumb.png" type="Texture" id=17]
+[ext_resource path="res://Shop/Assets/item_6-thumb.png" type="Texture" id=18]
+[ext_resource path="res://Shop/Assets/item_4-pressed.png" type="Texture" id=19]
+[ext_resource path="res://Tanks/tank-tier_0.tscn" type="PackedScene" id=20]
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="StyleBoxEmpty" id=1]
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 15.5, 238 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -24,7 +36,6 @@ script = ExtResource( 1 )
 layer = 2
 
 [node name="PopupPanel" type="PopupPanel" parent="PopupLayer"]
-visible = true
 margin_left = 96.0
 margin_top = 45.0
 margin_right = 240.0
@@ -119,8 +130,8 @@ focus_neighbour_bottom = NodePath("../Item5")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 10 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -138,8 +149,8 @@ focus_neighbour_bottom = NodePath("../Item6")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 13 )
+texture_pressed = ExtResource( 7 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -157,8 +168,8 @@ focus_neighbour_bottom = NodePath("../Item7")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 8 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -172,11 +183,12 @@ rect_pivot_offset = Vector2( -135, 216 )
 focus_neighbour_left = NodePath("../Item3")
 focus_neighbour_top = NodePath("../Item0")
 focus_neighbour_right = NodePath("../Item5")
+focus_neighbour_bottom = NodePath("../../GridContainer2/Item0")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 16 )
+texture_pressed = ExtResource( 19 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -191,11 +203,12 @@ rect_pivot_offset = Vector2( -135, 216 )
 focus_neighbour_left = NodePath("../Item4")
 focus_neighbour_top = NodePath("../Item1")
 focus_neighbour_right = NodePath("../Item6")
+focus_neighbour_bottom = NodePath("../../GridContainer2/Item1")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -213,8 +226,8 @@ focus_neighbour_right = NodePath("../Item7")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 18 )
+texture_pressed = ExtResource( 12 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -228,11 +241,12 @@ margin_bottom = 68.0
 rect_pivot_offset = Vector2( -135, 216 )
 focus_neighbour_left = NodePath("../Item6")
 focus_neighbour_top = NodePath("../Item3")
+focus_neighbour_right = NodePath("../../GridContainer2/Item0")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
+texture_normal = ExtResource( 17 )
+texture_pressed = ExtResource( 11 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -266,6 +280,8 @@ columns = 4
 margin_right = 32.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( -135, 216 )
+focus_neighbour_left = NodePath("../../GridContainer/Item7")
+focus_neighbour_top = NodePath("../../GridContainer/Item4")
 focus_neighbour_right = NodePath("../Item1")
 focus_neighbour_bottom = NodePath("../../HSplitContainer4/BuyButton")
 focus_mode = 1
@@ -284,43 +300,8 @@ margin_right = 68.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( -135, 216 )
 focus_neighbour_left = NodePath("../Item0")
-focus_neighbour_right = NodePath("../Item2")
-focus_neighbour_bottom = NodePath("../../HSplitContainer4/BuyButton")
-focus_mode = 1
-toggle_mode = true
-enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
-texture_focused = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Item2" type="TextureButton" parent="ShopLayer/Panel/PetShop/GridContainer2"]
-margin_left = 72.0
-margin_right = 104.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( -135, 216 )
-focus_neighbour_left = NodePath("../Item1")
-focus_neighbour_right = NodePath("../Item3")
-focus_neighbour_bottom = NodePath("../../HSplitContainer4/BuyButton")
-focus_mode = 1
-toggle_mode = true
-enabled_focus_mode = 1
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 4 )
-texture_focused = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Item3" type="TextureButton" parent="ShopLayer/Panel/PetShop/GridContainer2"]
-margin_left = 108.0
-margin_right = 140.0
-margin_bottom = 32.0
-rect_pivot_offset = Vector2( -135, 216 )
-focus_neighbour_left = NodePath("../Item2")
-focus_neighbour_right = NodePath("../../HSplitContainer4/BuyButton")
+focus_neighbour_top = NodePath("../../GridContainer/Item5")
+focus_neighbour_right = NodePath("../../GridContainer/Item0")
 focus_neighbour_bottom = NodePath("../../HSplitContainer4/BuyButton")
 focus_mode = 1
 toggle_mode = true
@@ -350,8 +331,6 @@ text = "Price: N Coins"
 margin_left = 101.0
 margin_right = 140.0
 margin_bottom = 20.0
-focus_neighbour_left = NodePath("../../GridContainer2/Item3")
-focus_neighbour_top = NodePath("../../GridContainer2/Item3")
 focus_neighbour_right = NodePath("../../GridContainer/Item0")
 focus_neighbour_bottom = NodePath("../../GridContainer/Item0")
 text = "Buy"
@@ -360,21 +339,6 @@ __meta__ = {
 }
 
 [node name="PopupTimer" type="Timer" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="StaticBody2D"]
-margin_left = 340.0
-margin_top = 2.0
-margin_right = 367.0
-margin_bottom = 482.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 352, 241 )
-shape = SubResource( 3 )
 
 [node name="PetShopButton" type="Button" parent="."]
 margin_left = 18.0
@@ -417,6 +381,9 @@ __meta__ = {
 
 [node name="CoinCheckTimer" type="Timer" parent="."]
 
+[node name="Node2D" parent="." instance=ExtResource( 20 )]
+position = Vector2( 142, 84 )
+
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item2" to="." method="_on_TextureButton_button_down" binds= [ 2 ]]
@@ -427,8 +394,6 @@ __meta__ = {
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item7" to="." method="_on_TextureButton_button_down" binds= [ 7 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer2/Item0" to="." method="_on_TextureButton_button_down" binds= [ 12 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer2/Item1" to="." method="_on_TextureButton_button_down" binds= [ 13 ]]
-[connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer2/Item2" to="." method="_on_TextureButton_button_down" binds= [ 14 ]]
-[connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer2/Item3" to="." method="_on_TextureButton_button_down" binds= [ 15 ]]
 [connection signal="pressed" from="ShopLayer/Panel/PetShop/HSplitContainer4/BuyButton" to="." method="_on_BuyButton_pressed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_PopupTimer_timeout"]
 [connection signal="pressed" from="PetShopButton" to="." method="_on_PetShopButton_pressed"]

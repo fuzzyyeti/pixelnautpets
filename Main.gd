@@ -31,12 +31,27 @@ func load_tank():
 	$HTTPRequest.request("http://localhost:5000/tank/load",headers, false, HTTPClient.METHOD_GET, query)
 	
 
+func _physics_process(delta):
+	var already_picked = false
+	for i in get_children():
+		if i.name.begins_with('item'):
+			if i.get_node('ItemBody').can_grab:
+				if already_picked:
+					i.get_node('ItemBody').can_grab = false
+				else:
+					already_picked = true
+
 func update_items(items):
 	print(items)
+	for i in get_children():
+		if i.name.begins_with('item'):
+			remove_child(i)
+	var j = 0
 	for i in items:
-		print(i.item)
 		var texture = load('res://Shop/Assets/{0}.png'.format({'0':i.item}))
 		var ti = TankItem.instance()
+		ti.name = 'item {0}'.format({'0':j})
+		j += 1
 		var s = ti.get_node("ItemBody/Sprite")
 		s.texture = texture
 		ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
@@ -62,7 +77,7 @@ func _on_request_completed(result, response_code, headers, body):
 			var npc_motion = NPCMotion.new(rand_range(20,75), Vector2.RIGHT)
 			pixelnaut.set_motion(npc_motion)
 			pixelnaut.build_sprite(attributes)
-			pixelnaut.position = Vector2(30,30)
+			pixelnaut.position = Vector2(150,100)
 			add_child(pixelnaut)
 		update_items(json.result.tank.decorations)
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})

@@ -7,6 +7,7 @@
 [node name="Node2D" type="Node2D"]
 
 [node name="ItemBody" type="KinematicBody2D" parent="."]
+collision_layer = 2
 input_pickable = true
 script = ExtResource( 1 )
 
