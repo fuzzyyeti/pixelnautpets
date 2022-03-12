@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Tanks/tank-tier_3.png" type="Texture" id=1]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+position = Vector2( -65, 0 )
+polygon = PoolVector2Array( -71, 5, -71, 53, 223, 54, 222, -42, -71, -41, -72, 3, -87, 2, -97, -47, -69, -49, 234, -49, 245, 60, -96, 62, -87, 6 )
+
+[node name="Tank-tier3" type="Sprite" parent="."]
+position = Vector2( 10, 0 )
+texture = ExtResource( 1 )

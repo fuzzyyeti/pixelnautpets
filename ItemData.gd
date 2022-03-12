@@ -11,7 +11,6 @@ export var data = {
 9:['item_9',50],
 10:['item_10',50],
 11:['item_11',50],
-12:['fish_bowl',30],
-13:['basic_aquarium',200],
-14:['royal_aquarium',1000],
-15:['magestic_koi_pond',2000]}
+12:['fish_bowl',100],
+13:['basic_aquarium',500],
+14:['wide_aquarium',1000]}

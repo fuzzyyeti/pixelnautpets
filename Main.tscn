@@ -57,7 +57,6 @@ __meta__ = {
 [node name="ShopLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="ShopLayer"]
-visible = false
 margin_left = 48.0
 margin_top = -14.0
 margin_right = 246.0
@@ -301,6 +300,25 @@ margin_bottom = 32.0
 rect_pivot_offset = Vector2( -135, 216 )
 focus_neighbour_left = NodePath("../Item0")
 focus_neighbour_top = NodePath("../../GridContainer/Item5")
+focus_neighbour_right = NodePath("../Item2")
+focus_neighbour_bottom = NodePath("../../HSplitContainer4/BuyButton")
+focus_mode = 1
+toggle_mode = true
+enabled_focus_mode = 1
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+texture_focused = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Item2" type="TextureButton" parent="ShopLayer/Panel/PetShop/GridContainer2"]
+margin_left = 72.0
+margin_right = 104.0
+margin_bottom = 32.0
+rect_pivot_offset = Vector2( -135, 216 )
+focus_neighbour_left = NodePath("../Item1")
+focus_neighbour_top = NodePath("../../GridContainer/Item6")
 focus_neighbour_right = NodePath("../../GridContainer/Item0")
 focus_neighbour_bottom = NodePath("../../HSplitContainer4/BuyButton")
 focus_mode = 1
@@ -391,6 +409,7 @@ __meta__ = {
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item7" to="." method="_on_TextureButton_button_down" binds= [ 7 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer2/Item0" to="." method="_on_TextureButton_button_down" binds= [ 12 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer2/Item1" to="." method="_on_TextureButton_button_down" binds= [ 13 ]]
+[connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer2/Item2" to="." method="_on_TextureButton_button_down" binds= [ 14 ]]
 [connection signal="pressed" from="ShopLayer/Panel/PetShop/HSplitContainer4/BuyButton" to="." method="_on_BuyButton_pressed"]
 [connection signal="timeout" from="PopupTimer" to="." method="_on_PopupTimer_timeout"]
 [connection signal="pressed" from="PetShopButton" to="." method="_on_PetShopButton_pressed"]

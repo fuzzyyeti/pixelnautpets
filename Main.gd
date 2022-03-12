@@ -40,7 +40,6 @@ func _physics_process(delta):
 					already_picked = true
 
 func update_items(items):
-	print(items)
 	for i in get_children():
 		if i.name.begins_with('item'):
 			remove_child(i)
@@ -59,22 +58,33 @@ func update_items(items):
 		add_child(ti)
 
 func update_tank(type):
+	for i in get_children():
+		if i.name.begins_with('tank'):
+			remove_child(i)
 	if(type == 'bag'):
 		var tank_scene = load('res://Tanks/tank-tier_0.tscn')
 		var tank = tank_scene.instance()
 		tank.position = Vector2(171,77)
+		tank.name = 'tank'
 		add_child(tank)
 	if(type == 'fish_bowl'):
 		var tank_scene = load('res://Tanks/tank-tier_1.tscn')
 		var tank = tank_scene.instance()
 		tank.position = Vector2(171,77)
+		tank.name = 'tank'
 		add_child(tank)
 	if(type == 'basic_aquarium'):
 		var tank_scene = load('res://Tanks/tank-tier_2.tscn')
 		var tank = tank_scene.instance()
 		tank.position = Vector2(171,77)
+		tank.name = 'tank'
 		add_child(tank)
-	#if(type == 'wide_aquarium')
+	if(type == 'wide_aquarium'):
+		var tank_scene = load('res://Tanks/tank-tier_3.tscn')
+		var tank = tank_scene.instance()
+		tank.position = Vector2(171,77)
+		tank.name = 'tank'
+		add_child(tank)
 	
 func _on_position_update(position, item_type):
 	print('update position')
@@ -96,8 +106,8 @@ func _on_request_completed(result, response_code, headers, body):
 			pixelnaut.position = Vector2(150,100)
 			pixelnaut.z_index = 100
 			add_child(pixelnaut)
+		update_tank(json.result.tank.type)
 		update_items(json.result.tank.decorations)
-		update_tank('basic_aquarium')
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
 	if json.result.type == 'coinbalance':
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
@@ -105,7 +115,7 @@ func _on_request_completed(result, response_code, headers, body):
 			$PopupLayer/PopupPanel/Label.text = "You waited too long to take care of your pixelnaut and lost all your coins"
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
-	if json.result.type == 'buyitem':
+	if json.result.type == 'buyitem' or json.result.type == 'upgradetank':
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 		if json.result.result == 'success':
 			$PopupLayer/PopupPanel/Label.text = "You bought a {0} for {1} coins".format(
@@ -157,8 +167,6 @@ func _on_TextureButton_button_down(button):
 
 func _on_BuyButton_pressed():
 	print("selected {0} {1}".format({'0':_selected, '1': ItemData.data[_selected][0]}))
-
-
 	if(_selected < 12):
 		var query = JSON.print({"mint":mint, "item": ItemData.data[_selected][0]})
 		$HTTPRequest.request("http://localhost:5000/buyitem",headers, false, HTTPClient.METHOD_POST, query)
