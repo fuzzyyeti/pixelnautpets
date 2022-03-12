@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
@@ -19,7 +19,6 @@
 [ext_resource path="res://Shop/Assets/item_7-thumb.png" type="Texture" id=17]
 [ext_resource path="res://Shop/Assets/item_6-thumb.png" type="Texture" id=18]
 [ext_resource path="res://Shop/Assets/item_4-pressed.png" type="Texture" id=19]
-[ext_resource path="res://Tanks/tank-tier_2.tscn" type="PackedScene" id=20]
 
 [sub_resource type="StyleBoxTexture" id=2]
 texture = ExtResource( 2 )
@@ -381,9 +380,6 @@ __meta__ = {
 }
 
 [node name="CoinCheckTimer" type="Timer" parent="."]
-
-[node name="Node2D" parent="." instance=ExtResource( 20 )]
-position = Vector2( 171, 77 )
 
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item1" to="." method="_on_TextureButton_button_down" binds= [ 1 ]]

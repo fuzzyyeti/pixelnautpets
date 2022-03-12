@@ -57,6 +57,24 @@ func update_items(items):
 		ti.get_node("ItemBody").item_type = i.item
 		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
 		add_child(ti)
+
+func update_tank(type):
+	if(type == 'bag'):
+		var tank_scene = load('res://Tanks/tank-tier_0.tscn')
+		var tank = tank_scene.instance()
+		tank.position = Vector2(171,77)
+		add_child(tank)
+	if(type == 'fish_bowl'):
+		var tank_scene = load('res://Tanks/tank-tier_1.tscn')
+		var tank = tank_scene.instance()
+		tank.position = Vector2(171,77)
+		add_child(tank)
+	if(type == 'basic_aquarium'):
+		var tank_scene = load('res://Tanks/tank-tier_2.tscn')
+		var tank = tank_scene.instance()
+		tank.position = Vector2(171,77)
+		add_child(tank)
+	#if(type == 'wide_aquarium')
 	
 func _on_position_update(position, item_type):
 	print('update position')
@@ -79,6 +97,7 @@ func _on_request_completed(result, response_code, headers, body):
 			pixelnaut.z_index = 100
 			add_child(pixelnaut)
 		update_items(json.result.tank.decorations)
+		update_tank('basic_aquarium')
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
 	if json.result.type == 'coinbalance':
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
