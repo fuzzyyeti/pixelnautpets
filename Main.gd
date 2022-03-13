@@ -6,19 +6,32 @@ var _selected = 0
 const ItemDataScript = preload("res://ItemData.gd")
 var ItemData = ItemDataScript.new()
 const headers = ["Content-Type: application/json"]
-const mint = "hME4W9UibULcSzvd3ux4zvVKioWXhW5LErWS6Sd3Tfb"
+var mint = "9eohkfSjLNd7GfU7wMoDA5RakpWbzHEodikdik9NHuMW"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var _add_mint_ref = JavaScript.create_callback(self, "add_mint")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	var window = JavaScript.get_interface("window")
+	window.add_mint = _add_mint_ref
+
 	$ShopLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()	
 	$ShopLayer/Panel.hide()
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 	load_tank()
 	$CoinCheckTimer.start(6)
+
+func add_mint(mint_from_app):
+	print("This is from godot")
+	print("adding mint {0}".format({'0':mint_from_app}))
+	mint = mint_from_app[0]
+	if has_node('pixelnaut_0'):
+		remove_child(get_node('pixelnaut_0'))
+	load_tank()
+
 
 func check_coins():
 	# Add 'Content-Type' header:
@@ -110,11 +123,11 @@ func _on_request_completed(result, response_code, headers, body):
 		update_items(json.result.tank.decorations)
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
 	if json.result.type == 'coinbalance':
-		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
-		if(json.result.coin_reset):
+		if json.result.coin_reset and $CoinLabel.text != '0 Coins':
 			$PopupLayer/PopupPanel/Label.text = "You waited too long to take care of your pixelnaut and lost all your coins"
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)
+		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 	if json.result.type == 'buyitem' or json.result.type == 'upgradetank':
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 		if json.result.result == 'success':
