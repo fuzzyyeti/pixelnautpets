@@ -7,6 +7,7 @@ const ItemDataScript = preload("res://ItemData.gd")
 var ItemData = ItemDataScript.new()
 const headers = ["Content-Type: application/json"]
 var mint = "9eohkfSjLNd7GfU7wMoDA5RakpWbzHEodikdik9NHuMW"
+var URL_BASE = "http://localhost:5000"
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -14,7 +15,9 @@ var _add_mint_ref = JavaScript.create_callback(self, "add_mint")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	var godot_url = OS.get_environment('GODOT_URL')
+	if(godot_url):
+		URL_BASE = godot_url
 	var window = JavaScript.get_interface("window")
 	window.add_mint = _add_mint_ref
 
@@ -35,11 +38,11 @@ func add_mint(mint_from_app):
 
 func check_coins():
 	# Add 'Content-Type' header:
-	$HTTPRequest.request("http://localhost:5000/coinbalance?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
+	$HTTPRequest.request(URL_BASE + "/coinbalance?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
 
 func load_tank():
 	# Add 'Content-Type' header:
-	$HTTPRequest.request("http://localhost:5000/tank/load?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
+	$HTTPRequest.request(URL_BASE + "/tank/load?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
 	
 
 func _physics_process(delta):
@@ -103,7 +106,7 @@ func _on_position_update(position, item_type):
 	print('update position')
 	print(position)
 	var query = JSON.print({"mint":mint, "item": item_type, "x": position.x, "y": position.y})
-	$HTTPRequest.request("http://localhost:5000/update/itemposition",headers, false, HTTPClient.METHOD_POST, query)
+	$HTTPRequest.request(URL_BASE + "/update/itemposition",headers, false, HTTPClient.METHOD_POST, query)
 	
 	
 func _on_request_completed(result, response_code, headers, body):
@@ -182,10 +185,10 @@ func _on_BuyButton_pressed():
 	print("selected {0} {1}".format({'0':_selected, '1': ItemData.data[_selected][0]}))
 	if(_selected < 12):
 		var query = JSON.print({"mint":mint, "item": ItemData.data[_selected][0]})
-		$HTTPRequest.request("http://localhost:5000/buyitem",headers, false, HTTPClient.METHOD_POST, query)
+		$HTTPRequest.request(URL_BASE + "/buyitem",headers, false, HTTPClient.METHOD_POST, query)
 	else:
 		var query = JSON.print({"mint":mint, "tank": ItemData.data[_selected][0]})
-		$HTTPRequest.request("http://localhost:5000/upgradetank",headers, false, HTTPClient.METHOD_POST, query)
+		$HTTPRequest.request(URL_BASE + "/upgradetank",headers, false, HTTPClient.METHOD_POST, query)
 	# Add 'Content-Type' header:
 
 	
@@ -205,12 +208,12 @@ func _on_PetShopButton_pressed():
 
 func _on_FeedButton_pressed():
 	var query = JSON.print({"mint":mint})
-	$HTTPRequest.request("http://localhost:5000/feedfish",headers, false, HTTPClient.METHOD_POST, query)
+	$HTTPRequest.request(URL_BASE + "/feedfish",headers, false, HTTPClient.METHOD_POST, query)
 
 
 func _on_CleanButton_pressed():
 	var query = JSON.print({"mint":mint})
-	$HTTPRequest.request("http://localhost:5000/changewater",headers, false, HTTPClient.METHOD_POST, query)
+	$HTTPRequest.request(URL_BASE + "/changewater",headers, false, HTTPClient.METHOD_POST, query)
 
 
 func _on_CoinCheckTimer_timeout():
