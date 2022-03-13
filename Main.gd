@@ -31,7 +31,7 @@ func _ready():
 
 func add_api_url(api_url):
 	print('trying to update URL')
-	if(api_url):
+	if(api_url and api_url != ''):
 		URL_BASE = api_url[0]
 		print('Update URL BASE')
 		print(URL_BASE)
