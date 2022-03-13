@@ -12,20 +12,29 @@ var URL_BASE = "http://localhost:5000"
 # var a = 2
 # var b = "text"
 var _add_mint_ref = JavaScript.create_callback(self, "add_mint")
+var _add_api_url_ref = JavaScript.create_callback(self, "add_api_url")
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var godot_url = OS.get_environment('GODOT_URL')
-	if(godot_url):
-		URL_BASE = godot_url
 	var window = JavaScript.get_interface("window")
-	window.add_mint = _add_mint_ref
-
+	if window:
+		window.add_mint = _add_mint_ref
+		window.add_api_url =  _add_api_url_ref
+		window.godot_ready()
 	$ShopLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()	
 	$ShopLayer/Panel.hide()
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 	load_tank()
 	$CoinCheckTimer.start(6)
+
+func add_api_url(api_url):
+	print('trying to update URL')
+	if(api_url):
+		URL_BASE = api_url[0]
+		print('Update URL BASE')
+		print(URL_BASE)
 
 func add_mint(mint_from_app):
 	print("This is from godot")
