@@ -27,11 +27,11 @@ func _ready():
 	$ShopLayer/Panel.hide()
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 	load_tank()
-	$CoinCheckTimer.start(6)
+	$CoinCheckTimer.start(6)		
 
 func add_api_url(api_url):
 	print('trying to update URL')
-	if(api_url and api_url != ''):
+	if(api_url[0] and api_url[0] != ''):
 		URL_BASE = api_url[0]
 		print('Update URL BASE')
 		print(URL_BASE)
@@ -152,7 +152,7 @@ func _on_request_completed(result, response_code, headers, body):
 				$PopupLayer/PopupPanel/Label.text = "You already have a {1}".format(
 					{'1': json.result.item.replace('_',' ')})
 			else:	
-				$PopupLayer/PopupPanel/Label.text = "You don't have enough coins to by a {1}".format(
+				$PopupLayer/PopupPanel/Label.text = "You don't have enough coins to buy a {1}".format(
 					{'1': json.result.item.replace('_',' ')})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
 			$PopupTimer.start(3)

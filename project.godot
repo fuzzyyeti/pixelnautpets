@@ -40,6 +40,10 @@ window/size/test_height=600
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[gui]
+
+theme/custom_font="res://m5x7.ttf"
+
 [physics]
 
 common/enable_pause_aware_picking=true
@@ -49,5 +53,5 @@ common/enable_pause_aware_picking=true
 quality/driver/driver_name="GLES2"
 vram_compression/import_etc=true
 vram_compression/import_etc2=false
-environment/default_clear_color=Color( 0.0705882, 0.0509804, 0.435294, 1 )
+environment/default_clear_color=Color( 0.101961, 0.0588235, 0.34902, 1 )
 environment/default_environment="res://default_env.tres"
