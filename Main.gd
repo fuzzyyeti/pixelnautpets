@@ -71,8 +71,6 @@ func update_items(items):
 			remove_child(i)
 	var j = 0
 	for i in items:
-		if i.item == 'kelp':
-			i.item = 'coral'
 		var	texture = load('res://Shop/Assets/{0}.png'.format({'0':i.item}))
 		var ti = TankItem.instance()
 		ti.name = 'item {0}'.format({'0':j})
