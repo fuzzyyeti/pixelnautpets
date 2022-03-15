@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/x.png-3348759b97191df77e4508fc5eeab1e9.stex"
+path="res://.import/orca_mug.png-1112517285aa0edcb3b44cd4a0b31893.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://x.png"
-dest_files=[ "res://.import/x.png-3348759b97191df77e4508fc5eeab1e9.stex" ]
+source_file="res://Shop/Assets/orca_mug.png"
+dest_files=[ "res://.import/orca_mug.png-1112517285aa0edcb3b44cd4a0b31893.stex" ]
 
 [params]
 

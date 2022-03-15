@@ -2,6 +2,7 @@ extends Node2D
 const Pixelnaut = preload("res://Pixelnauts/Pixelnaut.tscn")
 const NPCMotion = preload("res://Pixelnauts/NPCMotion.gd")
 const TankItem = preload("res://TankItem.tscn")
+const POPUP_TIME = 7
 var _selected = 0
 const ItemDataScript = preload("res://ItemData.gd")
 var ItemData = ItemDataScript.new()
@@ -27,7 +28,7 @@ func _ready():
 	$ShopLayer/Panel.hide()
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 	load_tank()
-	$CoinCheckTimer.start(6)		
+	$CoinCheckTimer.start(6)
 
 func add_api_url(api_url):
 	print('trying to update URL')
@@ -70,18 +71,45 @@ func update_items(items):
 			remove_child(i)
 	var j = 0
 	for i in items:
-		var texture = load('res://Shop/Assets/{0}.png'.format({'0':i.item}))
+		if i.item == 'kelp':
+			i.item = 'coral'
+		var	texture = load('res://Shop/Assets/{0}.png'.format({'0':i.item}))
 		var ti = TankItem.instance()
 		ti.name = 'item {0}'.format({'0':j})
 		j += 1
 		var s = ti.get_node("ItemBody/Sprite")
 		s.texture = texture
-		ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
+		
 		ti.get_node("ItemBody").position = Vector2(i.position.x, i.position.y)
 		ti.get_node("ItemBody").item_type = i.item
 		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
 		add_child(ti)
-
+		if i.item in ['kelp']:
+			ti.get_node("ItemBody").animate('fast', 10)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(9,16)
+			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(18,3)
+		if i.item in ['atlas_ship', 'orca_mug','hog_pet','samo_pet','scallop']:
+			ti.get_node("ItemBody").animate('fast', 10)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(5,8)
+			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(14,12)
+		if i.item in ['phantom_ghost']:
+			ti.get_node("ItemBody").animate('fast', 10)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(7,6)
+			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(11,-10)
+		if i.item in ['sbr_saber']:
+			ti.get_node("ItemBody").animate('fast', 10)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(9,16)
+			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(12,10)
+		if i.item in ['sol_beach_ball']:
+			ti.get_node("ItemBody").animate('fast', 10)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(7,8)
+			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(11,-5)
+		if i.item in ['coral']:
+			ti.get_node("ItemBody").animate('fast', 10)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(6,11)
+			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(18,11)
+	#	else:
+#			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/4, s.texture.get_height()/4)
 func update_tank(type):
 	for i in get_children():
 		if i.name.begins_with('tank'):
@@ -136,46 +164,46 @@ func _on_request_completed(result, response_code, headers, body):
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
 	if json.result.type == 'coinbalance':
 		if json.result.coin_reset and $CoinLabel.text != '0 Coins':
-			$PopupLayer/PopupPanel/Label.text = "You waited too long to take care of your pixelnaut and lost all your coins"
+			$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You waited too long to take care of your pixelnaut and lost all your coins"
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
-			$PopupTimer.start(3)
+			$PopupTimer.start(POPUP_TIME)
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 	if json.result.type == 'buyitem' or json.result.type == 'upgradetank':
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 		if json.result.result == 'success':
-			$PopupLayer/PopupPanel/Label.text = "You bought a {0} for {1} coins".format(
+			$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You bought a {0} for {1} coins".format(
 				{'0': json.result.item.replace('_',' '), '1': json.result.cost})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
-			$PopupTimer.start(3)
+			$PopupTimer.start(POPUP_TIME)
 		else:
 			if json.result.cost == -1:
-				$PopupLayer/PopupPanel/Label.text = "You already have a {1}".format(
+				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You already have a {1}".format(
 					{'1': json.result.item.replace('_',' ')})
 			else:	
-				$PopupLayer/PopupPanel/Label.text = "You don't have enough coins to buy a {1}".format(
+				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You don't have enough coins to buy a {1}".format(
 					{'1': json.result.item.replace('_',' ')})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
-			$PopupTimer.start(3)
+			$PopupTimer.start(POPUP_TIME)
 		load_tank()
 	if json.result.type == 'feedfish':
 			$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 			if(json.result.coins == -1):
-				$PopupLayer/PopupPanel/Label.text = "You waited too long to feed your pixelnaut and lost all your coins"
+				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You waited too long to feed your pixelnaut and lost all your coins"
 			else:
-				$PopupLayer/PopupPanel/Label.text = "You got {0} coins for feeding your pixelnaut".format(
+				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You got {0} coins for feeding your pixelnaut".format(
 			{'0': json.result.coins})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
-			$PopupTimer.start(3)
+			$PopupTimer.start(POPUP_TIME)
 	if json.result.type == 'changewater':
 			$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 			if(json.result.coins == -1):
-				$PopupLayer/PopupPanel/Label.text = "You waited too long to change your pixelnaut's water and lost all your coins".format(
+				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You waited too long to change your pixelnaut's water and lost all your coins".format(
 					{'0': json.result.coins})
 			else:
-				$PopupLayer/PopupPanel/Label.text = "You got {0} coins for changing your pixelnaut's water".format(
+				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You got {0} coins for changing your pixelnaut's water".format(
 					{'0': json.result.coins})
 			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
-			$PopupTimer.start(3)
+			$PopupTimer.start(POPUP_TIME)
 			load_tank()
 		
 
@@ -187,7 +215,7 @@ func _on_TextureButton_button_down(button):
 	print('button')
 	print(button)
 	_selected = button
-	$ShopLayer/Panel/PetShop/HSplitContainer4/PriceLabel.text = "Price: {0} Coins".format({'0':ItemData.data[_selected][1]})
+	$ShopLayer/Panel/PetShop/GridContainer3/PriceLabel.text = "Price: {0} Coins".format({'0':ItemData.data[_selected][1]})
 
 
 func _on_BuyButton_pressed():
@@ -205,8 +233,9 @@ func _on_BuyButton_pressed():
 
 
 func _on_PopupTimer_timeout():
-	$PopupLayer/PopupPanel.hide() # Replace with function body.
-
+	$PopupLayer/PopupPanel.hide() 
+func _on_TextureButton_pressed():
+	$PopupLayer/PopupPanel.hide() 
 
 func _on_PetShopButton_pressed():
 	if $ShopLayer/Panel.visible:
@@ -228,3 +257,7 @@ func _on_CleanButton_pressed():
 func _on_CoinCheckTimer_timeout():
 	print("checking coins")
 	check_coins()
+
+
+func _on_store_button_pressed():
+	$ShopLayer/Panel.hide()

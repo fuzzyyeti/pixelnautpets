@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/x.png-3348759b97191df77e4508fc5eeab1e9.stex"
+path="res://.import/kelp.png-1264569c3000397d6abae5670f10b9dd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://x.png"
-dest_files=[ "res://.import/x.png-3348759b97191df77e4508fc5eeab1e9.stex" ]
+source_file="res://Shop/Assets/kelp.png"
+dest_files=[ "res://.import/kelp.png-1264569c3000397d6abae5670f10b9dd.stex" ]
 
 [params]
 

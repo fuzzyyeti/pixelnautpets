@@ -9,6 +9,16 @@ var grabbed_offset = Vector2()
 
 var item_type = ""
 
+func _ready():
+	$Sprite.hframes = 1
+
+func animate(speed, frames):
+	$Sprite.hframes = frames
+	if speed == 'fast':
+		$AnimationPlayer.play("Slow")
+	if speed == 'slow':
+		$AnimationPlayer.play("Slow")		
+
 func _process(delta):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab:
 		#position = get_global_mouse_position() + grabbed_offset
