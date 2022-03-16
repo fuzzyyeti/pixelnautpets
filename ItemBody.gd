@@ -15,7 +15,7 @@ func _ready():
 func animate(speed, frames):
 	$Sprite.hframes = frames
 	if speed == 'fast':
-		$AnimationPlayer.play("Slow")
+		$AnimationPlayer.play("Fast")
 	if speed == 'slow':
 		$AnimationPlayer.play("Slow")		
 

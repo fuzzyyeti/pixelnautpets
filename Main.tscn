@@ -15,10 +15,10 @@
 [ext_resource path="res://Shop/Assets/scuba_diver-thumb.png" type="Texture" id=13]
 [ext_resource path="res://Shop/Assets/item_5-thumb.png" type="Texture" id=14]
 [ext_resource path="res://Shop/Assets/item_5-pressed.png" type="Texture" id=15]
-[ext_resource path="res://Shop/Assets/item_4-thumb.png" type="Texture" id=16]
+[ext_resource path="res://Shop/Assets/tvs-pressed.png" type="Texture" id=16]
 [ext_resource path="res://Shop/Assets/item_7-thumb.png" type="Texture" id=17]
 [ext_resource path="res://Shop/Assets/item_6-thumb.png" type="Texture" id=18]
-[ext_resource path="res://Shop/Assets/item_4-pressed.png" type="Texture" id=19]
+[ext_resource path="res://Shop/Assets/tvs-thumb.png" type="Texture" id=19]
 [ext_resource path="res://pixelated.tres" type="Theme" id=20]
 [ext_resource path="res://Tanks/tier_1-thumb.png" type="Texture" id=21]
 [ext_resource path="res://Tanks/tier_1-pressed.png" type="Texture" id=22]
@@ -59,7 +59,6 @@ script = ExtResource( 1 )
 layer = 2
 
 [node name="PopupPanel" type="PopupPanel" parent="PopupLayer"]
-visible = true
 margin_left = 94.0
 margin_top = 45.0
 margin_right = 240.0
@@ -261,8 +260,8 @@ focus_neighbour_bottom = NodePath("../../GridContainer2/Item0")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 16 )
-texture_pressed = ExtResource( 19 )
+texture_normal = ExtResource( 19 )
+texture_pressed = ExtResource( 16 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

@@ -1,9 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://ItemBody.gd" type="Script" id=1]
 
 [sub_resource type="Animation" id=2]
-resource_name = "Slow"
+resource_name = "Fast"
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -17,6 +17,23 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0, 9 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "Slow"
+length = 30.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ItemBody/Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 4, 4.5, 11.7, 12.2, 17.9, 18.2, 26, 26.7 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1, 3, 1, 4, 1, 5 ]
 }
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -33,7 +50,8 @@ hframes = 10
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ItemBody"]
 root_node = NodePath("../..")
-anims/Slow = SubResource( 2 )
+anims/Fast = SubResource( 2 )
+anims/Slow = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ItemBody"]
 shape = SubResource( 1 )

@@ -77,37 +77,48 @@ func update_items(items):
 		j += 1
 		var s = ti.get_node("ItemBody/Sprite")
 		s.texture = texture
-		
+		print('got here')
+		print(s.texture.to_string())
 		ti.get_node("ItemBody").position = Vector2(i.position.x, i.position.y)
 		ti.get_node("ItemBody").item_type = i.item
 		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
+		ti.get_node("ItemBody/CollisionShape2D").shape = RectangleShape2D.new()
 		add_child(ti)
-		if i.item in ['kelp']:
+		if i.item == 'tv':
+			print('set tv')
+			print(ti.get_node("ItemBody/CollisionShape2D").shape)
+			print(ti)
+			ti.get_node("ItemBody").animate('slow', 6)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/12, s.texture.get_height()/2)
+		elif i.item in ['kelp']:
 			ti.get_node("ItemBody").animate('fast', 10)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(9,16)
 			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(18,3)
-		if i.item in ['atlas_ship', 'orca_mug','hog_pet','samo_pet','scallop']:
+		elif i.item in ['atlas_ship', 'orca_mug','hog_pet','samo_pet','scallop']:
 			ti.get_node("ItemBody").animate('fast', 10)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(5,8)
 			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(14,12)
-		if i.item in ['phantom_ghost']:
+		elif i.item in ['phantom_ghost']:
 			ti.get_node("ItemBody").animate('fast', 10)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(7,6)
 			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(11,-10)
-		if i.item in ['sbr_saber']:
+		elif i.item in ['sbr_saber']:
 			ti.get_node("ItemBody").animate('fast', 10)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(9,16)
 			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(12,10)
-		if i.item in ['sol_beach_ball']:
+		elif i.item in ['sol_beach_ball']:
 			ti.get_node("ItemBody").animate('fast', 10)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(7,8)
 			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(11,-5)
-		if i.item in ['coral']:
+		elif i.item in ['coral']:
 			ti.get_node("ItemBody").animate('fast', 10)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(6,11)
 			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(18,11)
-	#	else:
-#			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/4, s.texture.get_height()/4)
+		else:
+			print('set main')
+			print(ti.get_node("ItemBody/CollisionShape2D").shape)
+			print(ti)
+			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
 func update_tank(type):
 	for i in get_children():
 		if i.name.begins_with('tank'):
