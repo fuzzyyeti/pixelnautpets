@@ -77,7 +77,6 @@ func update_items(items):
 		j += 1
 		var s = ti.get_node("ItemBody/Sprite")
 		s.texture = texture
-		print('got here')
 		print(s.texture.to_string())
 		ti.get_node("ItemBody").position = Vector2(i.position.x, i.position.y)
 		ti.get_node("ItemBody").item_type = i.item
@@ -120,7 +119,9 @@ func update_items(items):
 			print(ti)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
 			ti.get_node("ItemBody").one_frame()
-
+		if i.item == 'lamp':
+			ti.get_node("ItemBody/Sprite").hframes = 2
+			ti.get_node("ItemBody/Sprite").frame = 1
 func update_tank(type):
 	var t = get_node('tank')
 	remove_child(t)
@@ -157,7 +158,9 @@ func _on_position_update(position, item_type):
 	print(position)
 	var query = JSON.print({"mint":mint, "item": item_type, "x": position.x, "y": position.y})
 	$HTTPRequest.request(URL_BASE + "/update/itemposition",headers, false, HTTPClient.METHOD_POST, query)
-	
+#	if item_type == 'lamp':
+#		ti.get_node("ItemBody/Sprite").hframes = 2
+#		ti.get_node("ItemBody/Sprite").frame = 1
 	
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
