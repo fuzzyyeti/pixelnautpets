@@ -5,19 +5,17 @@
 [ext_resource path="res://Shop/Assets/highlight.png" type="Texture" id=3]
 [ext_resource path="res://Shop/Assets/sand_castle-pressed.png" type="Texture" id=4]
 [ext_resource path="res://Shop/Assets/sand_castle-thumb.png" type="Texture" id=5]
-[ext_resource path="res://Shop/Assets/green_plant-thumb.png" type="Texture" id=6]
-[ext_resource path="res://Shop/Assets/scuba_diver-pressed.png" type="Texture" id=7]
-[ext_resource path="res://Shop/Assets/item_3-pressed.png" type="Texture" id=8]
-[ext_resource path="res://Shop/Assets/item_3-thumb.png" type="Texture" id=9]
-[ext_resource path="res://Shop/Assets/green_plant-pressed.png" type="Texture" id=10]
-[ext_resource path="res://Shop/Assets/item_7-pressed.png" type="Texture" id=11]
-[ext_resource path="res://Shop/Assets/item_6-pressed.png" type="Texture" id=12]
-[ext_resource path="res://Shop/Assets/scuba_diver-thumb.png" type="Texture" id=13]
-[ext_resource path="res://Shop/Assets/item_5-thumb.png" type="Texture" id=14]
-[ext_resource path="res://Shop/Assets/item_5-pressed.png" type="Texture" id=15]
+[ext_resource path="res://Shop/Assets/shell-thumb.png" type="Texture" id=6]
+[ext_resource path="res://Shop/Assets/umbrella-pressed.png" type="Texture" id=7]
+[ext_resource path="res://Shop/Assets/fruit_basket-thumb.png" type="Texture" id=8]
+[ext_resource path="res://Shop/Assets/table-thumb.png" type="Texture" id=9]
+[ext_resource path="res://Shop/Assets/lamp-pressed.png" type="Texture" id=10]
+[ext_resource path="res://Shop/Assets/shell-pressed.png" type="Texture" id=11]
+[ext_resource path="res://Shop/Assets/lamp-thumb.png" type="Texture" id=12]
+[ext_resource path="res://Shop/Assets/table-pressed.png" type="Texture" id=13]
+[ext_resource path="res://Shop/Assets/chair-pressed.png" type="Texture" id=14]
+[ext_resource path="res://Shop/Assets/fruit_basket-pressed.png" type="Texture" id=15]
 [ext_resource path="res://Shop/Assets/tvs-pressed.png" type="Texture" id=16]
-[ext_resource path="res://Shop/Assets/item_7-thumb.png" type="Texture" id=17]
-[ext_resource path="res://Shop/Assets/item_6-thumb.png" type="Texture" id=18]
 [ext_resource path="res://Shop/Assets/tvs-thumb.png" type="Texture" id=19]
 [ext_resource path="res://pixelated.tres" type="Theme" id=20]
 [ext_resource path="res://Tanks/tier_1-thumb.png" type="Texture" id=21]
@@ -27,6 +25,8 @@
 [ext_resource path="res://Tanks/tier_3-pressed.png" type="Texture" id=25]
 [ext_resource path="res://Tanks/tier_3-thumb.png" type="Texture" id=26]
 [ext_resource path="res://x.png" type="Texture" id=27]
+[ext_resource path="res://Shop/Assets/umbrella.png" type="Texture" id=28]
+[ext_resource path="res://Shop/Assets/chair.png" type="Texture" id=29]
 
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.101961, 0.0588235, 0.34902, 1 )
@@ -203,7 +203,7 @@ focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
 texture_normal = ExtResource( 6 )
-texture_pressed = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -221,7 +221,7 @@ focus_neighbour_bottom = NodePath("../Item6")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 13 )
+texture_normal = ExtResource( 28 )
 texture_pressed = ExtResource( 7 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
@@ -241,7 +241,7 @@ focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
 texture_normal = ExtResource( 9 )
-texture_pressed = ExtResource( 8 )
+texture_pressed = ExtResource( 13 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -279,8 +279,8 @@ focus_neighbour_bottom = NodePath("../../GridContainer2/Item1")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 14 )
-texture_pressed = ExtResource( 15 )
+texture_normal = ExtResource( 29 )
+texture_pressed = ExtResource( 14 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -298,8 +298,8 @@ focus_neighbour_right = NodePath("../Item7")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 18 )
-texture_pressed = ExtResource( 12 )
+texture_normal = ExtResource( 12 )
+texture_pressed = ExtResource( 10 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -317,8 +317,8 @@ focus_neighbour_right = NodePath("../../GridContainer2/Item0")
 focus_mode = 1
 toggle_mode = true
 enabled_focus_mode = 1
-texture_normal = ExtResource( 17 )
-texture_pressed = ExtResource( 11 )
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 15 )
 texture_focused = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
