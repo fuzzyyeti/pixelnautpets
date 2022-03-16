@@ -120,6 +120,7 @@ func update_items(items):
 			print(ti)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
 			ti.get_node("ItemBody").one_frame()
+
 func update_tank(type):
 	var t = get_node('tank')
 	remove_child(t)
@@ -174,10 +175,11 @@ func _on_request_completed(result, response_code, headers, body):
 		update_tank(json.result.tank.type)
 		update_items(json.result.tank.decorations)
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.coins})
+		check_coins()
 	if json.result.type == 'coinbalance':
 		if json.result.coin_reset and $CoinLabel.text != '0 Coins':
 			$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You waited too long to take care of your pixelnaut and lost all your coins"
-			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
+			$PopupLayer/PopupPanel.popup_centered(Vector2(100,100))
 			$PopupTimer.start(POPUP_TIME)
 		$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
 	if json.result.type == 'buyitem' or json.result.type == 'upgradetank':
@@ -263,13 +265,18 @@ func _on_FeedButton_pressed():
 	get_node('tank/AnimationPlayer').play("Food")
 	get_node('pixelnaut_0').speed_offset = 40
 	$FeedTimer.start(10)
-
+	$CleanButton.disabled = true
+	$FeedButton.disabled = true
+	
 func _on_CleanButton_pressed():
 	var query = JSON.print({"mint":mint})
 	$HTTPRequest.request(URL_BASE + "/changewater",headers, false, HTTPClient.METHOD_POST, query)
 	get_node('tank/AnimationPlayer').play("Clean")
 	get_node('pixelnaut_0').hide()
-
+	$FeedTimer.start(10)
+	$CleanButton.disabled = true
+	$FeedButton.disabled = true
+	
 func _on_CoinCheckTimer_timeout():
 	print("checking coins")
 	check_coins()
@@ -281,3 +288,5 @@ func _on_store_button_pressed():
 
 func _on_FeedTimer_timeout():
 	get_node('pixelnaut_0').speed_offset = 0
+	$CleanButton.disabled = false
+	$FeedButton.disabled = false
