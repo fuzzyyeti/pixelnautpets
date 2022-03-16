@@ -1,6 +1,39 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Tanks/tank-tier_3.png" type="Texture" id=1]
+[ext_resource path="res://Tanks/food.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Clean"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Tank-tier3:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1.8, 2.3, 3.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 8, 8, 0 ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "Food"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0.1, 10 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0, 9 ]
+}
 
 [node name="Node2D" type="Node2D"]
 
@@ -14,3 +47,14 @@ polygon = PoolVector2Array( -71, 5, -71, 53, 223, 54, 222, -42, -71, -41, -72, 3
 [node name="Tank-tier3" type="Sprite" parent="."]
 position = Vector2( 10, 0 )
 texture = ExtResource( 1 )
+hframes = 9
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -3, -34 )
+texture = ExtResource( 2 )
+hframes = 10
+frame = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Clean = SubResource( 1 )
+anims/Food = SubResource( 2 )

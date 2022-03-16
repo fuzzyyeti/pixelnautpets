@@ -59,10 +59,11 @@ script = ExtResource( 1 )
 layer = 2
 
 [node name="PopupPanel" type="PopupPanel" parent="PopupLayer"]
-margin_left = 94.0
-margin_top = 45.0
-margin_right = 240.0
-margin_bottom = 101.0
+visible = true
+margin_left = 202.0
+margin_top = 6.0
+margin_right = 348.0
+margin_bottom = 62.0
 size_flags_vertical = 3
 theme = ExtResource( 20 )
 custom_styles/panel = SubResource( 6 )
@@ -481,6 +482,8 @@ __meta__ = {
 
 [node name="CoinCheckTimer" type="Timer" parent="."]
 
+[node name="FeedTimer" type="Timer" parent="."]
+
 [connection signal="pressed" from="PopupLayer/PopupPanel/GridContainer/HBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="ShopLayer/Panel/PetShop/HBoxContainer/TextureButton" to="." method="_on_store_button_pressed"]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
@@ -500,3 +503,4 @@ __meta__ = {
 [connection signal="pressed" from="FeedButton" to="." method="_on_FeedButton_pressed"]
 [connection signal="pressed" from="CleanButton" to="." method="_on_CleanButton_pressed"]
 [connection signal="timeout" from="CoinCheckTimer" to="." method="_on_CoinCheckTimer_timeout"]
+[connection signal="timeout" from="FeedTimer" to="." method="_on_FeedTimer_timeout"]

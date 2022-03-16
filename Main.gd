@@ -2,7 +2,7 @@ extends Node2D
 const Pixelnaut = preload("res://Pixelnauts/Pixelnaut.tscn")
 const NPCMotion = preload("res://Pixelnauts/NPCMotion.gd")
 const TankItem = preload("res://TankItem.tscn")
-const POPUP_TIME = 7
+const POPUP_TIME = 5
 var _selected = 0
 const ItemDataScript = preload("res://ItemData.gd")
 var ItemData = ItemDataScript.new()
@@ -81,8 +81,8 @@ func update_items(items):
 		print(s.texture.to_string())
 		ti.get_node("ItemBody").position = Vector2(i.position.x, i.position.y)
 		ti.get_node("ItemBody").item_type = i.item
-		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
 		ti.get_node("ItemBody/CollisionShape2D").shape = RectangleShape2D.new()
+		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
 		add_child(ti)
 		if i.item == 'tv':
 			print('set tv')
@@ -119,10 +119,13 @@ func update_items(items):
 			print(ti.get_node("ItemBody/CollisionShape2D").shape)
 			print(ti)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
+			ti.get_node("ItemBody").one_frame()
 func update_tank(type):
-	for i in get_children():
-		if i.name.begins_with('tank'):
-			remove_child(i)
+	var t = get_node('tank')
+	remove_child(t)
+	#for i in get_children():
+#		if i.name.begins_with('tank'):
+	#		remove_child(i)
 	if(type == 'bag'):
 		var tank_scene = load('res://Tanks/tank-tier_0.tscn')
 		var tank = tank_scene.instance()
@@ -201,7 +204,7 @@ func _on_request_completed(result, response_code, headers, body):
 			else:
 				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You got {0} coins for feeding your pixelnaut".format(
 			{'0': json.result.coins})
-			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
+			$PopupLayer/PopupPanel.popup(Rect2(202,6,150,100))
 			$PopupTimer.start(POPUP_TIME)
 	if json.result.type == 'changewater':
 			$CoinLabel.text = "{0} Coins".format({'0': json.result.balance})
@@ -211,9 +214,9 @@ func _on_request_completed(result, response_code, headers, body):
 			else:
 				$PopupLayer/PopupPanel/GridContainer/MarginContainer/Label.text = "You got {0} coins for changing your pixelnaut's water".format(
 					{'0': json.result.coins})
-			$PopupLayer/PopupPanel.popup_centered(Vector2(100,60))
+			$PopupLayer/PopupPanel.popup(Rect2(202,6,150,100))
 			$PopupTimer.start(POPUP_TIME)
-			load_tank()
+			#load_tank()
 		
 
 func _on_TextureButton_button_down(button):
@@ -242,7 +245,8 @@ func _on_BuyButton_pressed():
 
 
 func _on_PopupTimer_timeout():
-	$PopupLayer/PopupPanel.hide() 
+	$PopupLayer/PopupPanel.hide()
+	get_node('pixelnaut_0').show() 
 func _on_TextureButton_pressed():
 	$PopupLayer/PopupPanel.hide() 
 
@@ -256,12 +260,15 @@ func _on_PetShopButton_pressed():
 func _on_FeedButton_pressed():
 	var query = JSON.print({"mint":mint})
 	$HTTPRequest.request(URL_BASE + "/feedfish",headers, false, HTTPClient.METHOD_POST, query)
-
+	get_node('tank/AnimationPlayer').play("Food")
+	get_node('pixelnaut_0').speed_offset = 40
+	$FeedTimer.start(10)
 
 func _on_CleanButton_pressed():
 	var query = JSON.print({"mint":mint})
 	$HTTPRequest.request(URL_BASE + "/changewater",headers, false, HTTPClient.METHOD_POST, query)
-
+	get_node('tank/AnimationPlayer').play("Clean")
+	get_node('pixelnaut_0').hide()
 
 func _on_CoinCheckTimer_timeout():
 	print("checking coins")
@@ -270,3 +277,7 @@ func _on_CoinCheckTimer_timeout():
 
 func _on_store_button_pressed():
 	$ShopLayer/Panel.hide()
+
+
+func _on_FeedTimer_timeout():
+	get_node('pixelnaut_0').speed_offset = 0

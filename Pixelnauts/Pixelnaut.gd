@@ -36,8 +36,8 @@ func _process_current():
 	else:
 		if is_playable:
 			speed_offset = 0
-		else:
-			speed_offset = move_toward(speed_offset, 0, CURRENT_DELTA)
+#		else:
+#			speed_offset = move_toward(speed_offset, 0, CURRENT_DELTA)
 		
 func _add_asset(sprite_type : String, sprite_name : String) -> void:
 	if(sprite_name == 'none'): return

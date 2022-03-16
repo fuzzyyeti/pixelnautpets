@@ -12,6 +12,9 @@ var item_type = ""
 func _ready():
 	$Sprite.hframes = 1
 
+func one_frame():
+	$Sprite.hframes = 1
+
 func animate(speed, frames):
 	$Sprite.hframes = frames
 	if speed == 'fast':
