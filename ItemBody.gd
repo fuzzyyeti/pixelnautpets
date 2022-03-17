@@ -6,7 +6,7 @@ signal position_update
 var can_grab = false
 export var test = "test text"
 var grabbed_offset = Vector2()
-
+var stopped = true
 var item_type = ""
 
 func _ready():
@@ -24,23 +24,20 @@ func animate(speed, frames):
 
 func _process(delta):
 	if Input.is_mouse_button_pressed(BUTTON_LEFT) and can_grab:
-		#position = get_global_mouse_position() + grabbed_offset
-		move_and_slide(((get_global_mouse_position() + grabbed_offset) - position).normalized() * 50)
-		if get_slide_collision(0):
-			if $Timer.is_stopped():
-				$Timer.start(2)
+		stopped = false	
+		var velocity = (get_global_mouse_position() + grabbed_offset) - position
+		move_and_slide(velocity.normalized() * 90)
+
 	else:
+		if not stopped:
+			emit_signal("position_update", position, item_type)
+		stopped = true
 		can_grab = false			
 func _on_ItemBody_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		can_grab = event.pressed
 		grabbed_offset = position - get_global_mouse_position()
-		if not event.pressed:
-			print(position)
-			emit_signal("position_update", position, item_type)
-				
-func _on_Timer_timeout():
-	print("collision emit")
-	$Timer.stop()
-	emit_signal("position_update", position, item_type)
+
+			
+#	emit_signal("position_update", position, item_type)
 	 # Replace with function body.

@@ -9,12 +9,13 @@ var ItemData = ItemDataScript.new()
 const headers = ["Content-Type: application/json"]
 var mint = "9eohkfSjLNd7GfU7wMoDA5RakpWbzHEodikdik9NHuMW"
 var URL_BASE = "http://localhost:5000"
+var http_ready = true
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
 var _add_mint_ref = JavaScript.create_callback(self, "add_mint")
 var _add_api_url_ref = JavaScript.create_callback(self, "add_api_url")
-
+var delay_load_mint
 
 
 # Called when the node enters the scene tree for the first time.
@@ -23,8 +24,7 @@ func _ready():
 	if window:
 		window.add_mint = _add_mint_ref
 		window.add_api_url =  _add_api_url_ref
-		window.godot_ready()
-	$ShopLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()	
+		window.godot_ready()	
 	$ShopLayer/Panel.hide()
 	$HTTPRequest.connect("request_completed", self, "_on_request_completed")
 	load_tank()
@@ -51,7 +51,13 @@ func check_coins():
 	$HTTPRequest.request(URL_BASE + "/coinbalance?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
 
 func load_tank():
+	if not http_ready:
+		delay_load_mint = mint
+		$HTTPTimeout.start(1)
+		return
 	# Add 'Content-Type' header:
+	print('http ready false from load tank')
+	http_ready = false
 	$HTTPRequest.request(URL_BASE + "/tank/load?mint={0}".format({'0':mint}),headers, false, HTTPClient.METHOD_GET)
 	
 
@@ -77,16 +83,12 @@ func update_items(items):
 		j += 1
 		var s = ti.get_node("ItemBody/Sprite")
 		s.texture = texture
-		print(s.texture.to_string())
 		ti.get_node("ItemBody").position = Vector2(i.position.x, i.position.y)
 		ti.get_node("ItemBody").item_type = i.item
 		ti.get_node("ItemBody/CollisionShape2D").shape = RectangleShape2D.new()
 		ti.get_node("ItemBody").connect("position_update", self, "_on_position_update")
 		add_child(ti)
 		if i.item == 'tv':
-			print('set tv')
-			print(ti.get_node("ItemBody/CollisionShape2D").shape)
-			print(ti)
 			ti.get_node("ItemBody").animate('slow', 6)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/12, s.texture.get_height()/2)
 		elif i.item in ['kelp']:
@@ -114,9 +116,6 @@ func update_items(items):
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(6,11)
 			ti.get_node("ItemBody/CollisionShape2D").position = Vector2(18,11)
 		else:
-			print('set main')
-			print(ti.get_node("ItemBody/CollisionShape2D").shape)
-			print(ti)
 			ti.get_node("ItemBody/CollisionShape2D").shape.extents = Vector2(s.texture.get_width()/2, s.texture.get_height()/2)
 			ti.get_node("ItemBody").one_frame()
 		if i.item == 'lamp':
@@ -154,8 +153,6 @@ func update_tank(type):
 		add_child(tank)
 	
 func _on_position_update(position, item_type):
-	print('update position')
-	print(position)
 	var query = JSON.print({"mint":mint, "item": item_type, "x": position.x, "y": position.y})
 	$HTTPRequest.request(URL_BASE + "/update/itemposition",headers, false, HTTPClient.METHOD_POST, query)
 #	if item_type == 'lamp':
@@ -221,7 +218,8 @@ func _on_request_completed(result, response_code, headers, body):
 					{'0': json.result.coins})
 			$PopupLayer/PopupPanel.popup(Rect2(202,6,150,100))
 			$PopupTimer.start(POPUP_TIME)
-			#load_tank()
+	print('http ready true')
+	http_ready = true
 		
 
 func _on_TextureButton_button_down(button):
@@ -229,14 +227,11 @@ func _on_TextureButton_button_down(button):
 		c.pressed = false
 	for c in $ShopLayer/Panel/PetShop/GridContainer2.get_children():
 		c.pressed = false
-	print('button')
-	print(button)
 	_selected = button
 	$ShopLayer/Panel/PetShop/GridContainer3/PriceLabel.text = "Price: {0} Coins".format({'0':ItemData.data[_selected][1]})
 
 
 func _on_BuyButton_pressed():
-	print("selected {0} {1}".format({'0':_selected, '1': ItemData.data[_selected][0]}))
 	if(_selected < 12):
 		var query = JSON.print({"mint":mint, "item": ItemData.data[_selected][0]})
 		$HTTPRequest.request(URL_BASE + "/buyitem",headers, false, HTTPClient.METHOD_POST, query)
@@ -260,6 +255,7 @@ func _on_PetShopButton_pressed():
 		$ShopLayer/Panel.hide()
 	else:
 		$ShopLayer/Panel.show()
+		$ShopLayer/Panel/PetShop/GridContainer.get_child(0).grab_focus()
 
 
 func _on_FeedButton_pressed():
@@ -293,3 +289,12 @@ func _on_FeedTimer_timeout():
 	get_node('pixelnaut_0').speed_offset = 0
 	$CleanButton.disabled = false
 	$FeedButton.disabled = false
+
+
+func _on_HTTPTimeout_timeout():
+	$HTTPTimeout.stop()
+	print('http ready false from timeout')
+	http_ready = false
+	if has_node('pixelnaut_0'):
+		remove_child(get_node('pixelnaut_0'))
+	$HTTPRequest.request(URL_BASE + "/tank/load?mint={0}".format({'0':delay_load_mint}),headers, false, HTTPClient.METHOD_GET)

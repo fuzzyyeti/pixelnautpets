@@ -482,6 +482,8 @@ __meta__ = {
 
 [node name="FeedTimer" type="Timer" parent="."]
 
+[node name="HTTPTimeout" type="Timer" parent="."]
+
 [connection signal="pressed" from="PopupLayer/PopupPanel/GridContainer/HBoxContainer/TextureButton" to="." method="_on_TextureButton_pressed"]
 [connection signal="pressed" from="ShopLayer/Panel/PetShop/HBoxContainer/TextureButton" to="." method="_on_store_button_pressed"]
 [connection signal="button_down" from="ShopLayer/Panel/PetShop/GridContainer/Item0" to="." method="_on_TextureButton_button_down" binds= [ 0 ]]
@@ -502,3 +504,4 @@ __meta__ = {
 [connection signal="pressed" from="CleanButton" to="." method="_on_CleanButton_pressed"]
 [connection signal="timeout" from="CoinCheckTimer" to="." method="_on_CoinCheckTimer_timeout"]
 [connection signal="timeout" from="FeedTimer" to="." method="_on_FeedTimer_timeout"]
+[connection signal="timeout" from="HTTPTimeout" to="." method="_on_HTTPTimeout_timeout"]
