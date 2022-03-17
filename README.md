@@ -1,5 +1,5 @@
 # Pixelnaut Pet Shop
-Pixelnaut game for Riptide Hackathon
+Pixelnaut game for Solana Riptide Hackathon
 
 > # Live demo at **[pixlenauts.shop](https://pixelnauts.shop)**
 
@@ -9,10 +9,8 @@ If you own one or more Orcanauts, connect your wallet and see your pet in the ga
 Switch between your different Orcanauts with the carousel.
 Each one has a unique game. You can feed and clean your Orcanaut's tank to collect coins.
 Use your coins to upgrade your tank and decorate it with items
-- Make sure to feed your Pixelnaut every 24 hours (one minute in demo mode).
-- You may get some coins, if you don't feed it too often, but if you wait to long you will lose all your coins.</li>
-- Make sure to clean your Pixelnaut's tank every seven days (seven minutes for demo mode).
-- You may get some coins, if you don't clean it too often, but if you wait to long you will lose all your coins.</li>
+- Make sure to feed your Pixelnaut every 24 hours (one minute in demo mode). You may get some coins, if you don't feed it too often, but if you wait to long you will lose all your coins.</li>
+- Make sure to clean your Pixelnaut's tank every seven days (seven minutes for demo mode). You may get some coins, if you don't clean it too often, but if you wait to long you will lose all your coins.</li>
 - Open the shop window to buy items. You can drag them around the tank to the perfect location.</li>
 - Open the shop window to upgrade your tank. You will get more room to decorate.</li></ul></div>
 
@@ -20,7 +18,7 @@ Use your coins to upgrade your tank and decorate it with items
 
 ## Running The Game Locally
 
-### Game (This repo)
+### Game (this repo)
 The game uses the [Godot](https://godotengine.org/) game engine. You will need to 
 install this and download the tools for exporting games to HTML5 from within Godot.
 
