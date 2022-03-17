@@ -412,13 +412,13 @@ margin_bottom = 155.0
 columns = 2
 
 [node name="PriceLabel" type="Label" parent="ShopLayer/Panel/PetShop/GridContainer3"]
-margin_right = 70.0
+margin_right = 77.0
 margin_bottom = 13.0
 theme = ExtResource( 20 )
-text = "Price: N Coins"
+text = "Price:          "
 
 [node name="BuyButton" type="Button" parent="ShopLayer/Panel/PetShop/GridContainer3"]
-margin_left = 74.0
+margin_left = 81.0
 margin_right = 140.0
 margin_bottom = 13.0
 focus_neighbour_left = NodePath("../../GridContainer2/Item2")
